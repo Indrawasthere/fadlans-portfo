@@ -1,8 +1,8 @@
 {
-  "name": "@once-ui-system/magic-portfolio",
+  "name": "fadlan-portofolio",
   "version": "2.3.0",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "export": "next export",
     "build": "next build",
     "biome-write": "npx @biomejs/biome format --write .",
