@@ -372,11 +372,10 @@ a.button:hover,
 }
 
 /* ========================
-   FOOTER ICON NEON STYLE
-   ======================== */
+     FIX FOOTER ICON
+======================== */
 
-/* Base: transparan & clean */
-.footer-icon {
+footer .footer-icon {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -385,23 +384,26 @@ a.button:hover,
   transition: 0.25s ease !important;
 }
 
-/* Hover = neon purple glow */
-.footer-icon:hover {
+footer .footer-icon button,
+footer .footer-icon svg,
+footer .footer-icon [data-once-ui-icon] {
+  z-index: 2 !important;
+  color: var(--neon-blue) !important;
+}
+
+/* Hover animation */
+footer .footer-icon:hover {
+  border-radius: 20px !important;
   border: 1px solid var(--neon-purple) !important;
   box-shadow:
     0 0 12px rgba(177, 76, 255, 0.45),
     inset 0 0 4px rgba(177, 76, 255, 0.35) !important;
-  transform: translateY(-2px) scale(1.08);
+  transform: translateY(-2px) scale(1.08) !important;
   background: rgba(0, 0, 0, 0.25) !important;
 }
 
-/* Icon color (idle + hover) */
-.footer-icon svg {
-  color: var(--neon-blue) !important;
-  transition: 0.25s ease;
-}
-
-.footer-icon:hover svg {
+footer .footer-icon:hover svg {
   color: var(--neon-purple) !important;
 }
+
 
