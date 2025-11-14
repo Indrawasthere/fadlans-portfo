@@ -57,7 +57,7 @@ export default function About() {
           <Column
             fillWidth
             padding="xl"
-            radius="32"
+            radius="m"
             className="energy-pulse"
             style={{
               border: "1px solid rgba(0,255,255,0.25)",
@@ -83,8 +83,8 @@ export default function About() {
               {about.avatar.display && (
                 <ScrollReveal translateY={16} delay={0.15}>
                   <Column
-                    minWidth="240"
-                    maxWidth="240"
+                    minWidth={240}
+                    maxWidth={240}
                     gap="l"
                     s={{
                       minWidth: "100%",
@@ -234,8 +234,8 @@ export default function About() {
               marginBottom="xl"
             >
               <Line
-                maxWidth="100%"
                 style={{
+                  maxWidth:"100%",
                   background: "rgba(0,255,255,0.25)",
                   boxShadow: "0 0 10px rgba(0,255,255,0.5)",
                 }}

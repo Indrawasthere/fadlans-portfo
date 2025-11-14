@@ -6,7 +6,8 @@ import { ProjectCard } from "@/components";
 interface ProjectsProps {
   range?: [number, number?];
   exclude?: string[];
-  cardClass?: string; // <-- tambahin ini
+  cardClass?: string;
+  className?: string;
 }
 
 export function Projects({ range, exclude, cardClass }: ProjectsProps) {

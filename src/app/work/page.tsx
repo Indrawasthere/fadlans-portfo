@@ -53,9 +53,10 @@ export default function Work() {
           <Column
             fillWidth
             padding="xl"
-            radius="32"
+            
             className="energy-pulse"
             style={{
+              borderRadius:"32",
               border: "1px solid rgba(0,255,255,0.25)",
               background: "rgba(10,10,20,0.45)",
               backdropFilter: "blur(14px)",
@@ -77,8 +78,7 @@ export default function Work() {
                 <Text
                   variant="body-default-l"
                   onBackground="neutral-weak"
-                  style={{ maxWidth: "80%" }}
-                  s={{
+                  style={{
                     maxWidth: "80%",
                     textAlign: "center",
                     marginTop: "8px",
@@ -93,8 +93,8 @@ export default function Work() {
             {/* GLOW DIVIDER */}
             <Row fillWidth horizontal="center" marginTop="xl" marginBottom="xl">
               <Line
-                maxWidth="100%"
                 style={{
+                  maxWidth:"100%",
                   background: "rgba(0,255,255,0.3)",
                   height: "2px",
                   boxShadow: "0 0 12px rgba(0,255,255,0.5)",
