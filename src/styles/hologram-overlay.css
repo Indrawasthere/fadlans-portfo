@@ -1,0 +1,60 @@
+/* HOLOGRAM OVERLAY */
+.holo-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2; /* di atas background tapi di bawah UI */
+  mix-blend-mode: screen;
+  opacity: 0.12;
+}
+
+/* Scanline horizontal halus */
+.holo-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(77, 243, 255, 0.06),
+    rgba(77, 243, 255, 0.06) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: holoScan 6s linear infinite;
+}
+
+/* RGB Shift shimmer */
+.holo-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 0, 150, 0.05),
+    rgba(0, 200, 255, 0.08),
+    rgba(180, 0, 255, 0.05)
+  );
+  mix-blend-mode: overlay;
+  animation: holoGlow 8s ease-in-out infinite;
+}
+
+@keyframes holoScan {
+  0% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(120%);
+  }
+}
+
+@keyframes holoGlow {
+  0% {
+    opacity: 0.04;
+  }
+  50% {
+    opacity: 0.09;
+  }
+  100% {
+    opacity: 0.04;
+  }
+}

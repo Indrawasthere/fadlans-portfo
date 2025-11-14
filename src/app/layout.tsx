@@ -2,6 +2,13 @@ import "@once-ui-system/core/css/styles.css";
 import "@once-ui-system/core/css/tokens.css";
 import "@/resources/custom.css";
 import "@/styles/neon-theme.css";
+import "@/styles/tron-grid.css";
+import ArcadeLoading from "@/components/ArcadeLoading";
+import HoloTrail from "@/components/HoloTrail";
+import "@/styles/hologram-overlay.css";
+import PageTransition from "@/components/PageTransition";
+import "@/styles/energy-pulse.css";
+import "@/styles/parallax-card.css";
 
 import classNames from "classnames";
 
@@ -115,6 +122,11 @@ export default async function RootLayout({
           padding="0"
           horizontal="center"
         >
+          <ArcadeLoading />
+          <div className="tron-grid-3d"></div>
+          <HoloTrail />
+          <PageTransition />
+          <div className="holo-overlay"></div>
           <RevealFx fill position="absolute">
             <Background
               mask={{

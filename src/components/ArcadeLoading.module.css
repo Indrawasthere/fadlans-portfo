@@ -1,0 +1,60 @@
+.screen {
+  position: fixed;
+  inset: 0;
+  background: #02040a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  color: #00faff;
+  font-family: "Press Start 2P", monospace;
+  animation: fadeOut 0.4s ease forwards 1.5s;
+}
+
+.loader {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.pixel {
+  width: 16px;
+  height: 16px;
+  background: #00faff;
+  box-shadow: 0 0 12px #00faff, 0 0 20px #00faff;
+  animation: blink 0.9s infinite alternate;
+}
+
+.pixel:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.pixel:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.text {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px #00faff;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}

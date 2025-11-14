@@ -18,7 +18,6 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
-import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -56,8 +55,12 @@ export default function About() {
 
   return (
     <>
-      <NeonParticles />
-      <Column fillWidth maxWidth="m" className="relative" style={{ zIndex: 1 }}>
+      <Column
+        fillWidth
+        maxWidth="2xl"
+        className="relative"
+        style={{ zIndex: 1, paddingTop: "40px", paddingBottom: "80px" }}
+      >
         <Schema
           as="webPage"
           baseURL={baseURL}
@@ -85,20 +88,25 @@ export default function About() {
               <TableOfContents structure={structure} about={about} />
             </Column>
           )}
-          <Row fillWidth s={{ direction: "column" }} horizontal="center">
+          <Row fillWidth gap="48" horizontal="start" s={{ direction: "column", gap: "32" }}>
             {about.avatar.display && (
               <Column
-                className={styles.avatar}
-                fitHeight
-                s={{ position: "relative", style: { top: "auto" } }}
-                xs={{ style: { top: "auto" } }}
-                minWidth="160"
-                paddingX="l"
-                paddingBottom="xl"
-                gap="m"
-                flex={3}
-                horizontal="center"
-                zIndex={-1}
+                minWidth="300"
+                maxWidth="300"
+                gap="l"
+                className="neon-card"
+                style={{
+                  padding: "24px",
+                  borderRadius: "20px",
+                  background: "rgba(20,20,30,0.4)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(80,200,255,0.25)",
+                  boxShadow: "0 0 25px rgba(0,180,255,0.25)",
+                }}
+                s={{
+                  minWidth: "100%",
+                  maxWidth: "100%",
+                }}
               >
                 <Avatar src={person.avatar} size="xl" />
                 <Row gap="8" vertical="center">
@@ -116,15 +124,30 @@ export default function About() {
                 )}
               </Column>
             )}
-            <Column className={styles.blockAlign} flex={9} maxWidth={40}>
+            <Column
+              className={styles.blockAlign}
+              flex={9}
+              gap="l"
+              style={{
+                maxWidth: "100%",
+              }}
+            >
               <ScrollReveal translateY={16} delay={0.1}>
                 <Column
                   id={about.intro.title}
                   fillWidth
-                  minHeight="160"
-                  vertical="center"
-                  marginBottom="32"
+                  gap="16"
+                  marginBottom="40"
+                  style={{
+                    alignItems: "flex-start",
+                    textAlign: "left",
+                  }}
+                  s={{
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
                 >
+                  {/* Calendar Button */}
                   {about.calendar.display && (
                     <Row
                       fitWidth
@@ -135,9 +158,8 @@ export default function About() {
                       gap="8"
                       marginBottom="m"
                       vertical="center"
-                      className={styles.blockAlign}
                       style={{
-                        backdropFilter: "blur(var(--static-space-1))",
+                        backdropFilter: "blur(10px)",
                       }}
                     >
                       <Icon
@@ -154,144 +176,156 @@ export default function About() {
                       />
                     </Row>
                   )}
+
+                  {/* NAME */}
                   <Heading
-                    className={`${styles.textAlign} neon-title`}
+                    className="neon-title"
                     variant="display-strong-xl"
+                    style={{
+                      lineHeight: "1.1",
+                    }}
                   >
                     {person.name}
                   </Heading>
+                  
+                  {/* ROLE */}
                   <Text
-                    className={styles.textAlign}
-                    variant="display-default-xs"
+                    variant="heading-default-l"
                     onBackground="neutral-weak"
+                    style={{
+                      marginTop: "-4px",
+                    }}
                   >
                     {person.role}
                   </Text>
+                  
+                  {/* Social Buttons */}
                   {social.length > 0 && (
                     <Row
-                      className={`${styles.blockAlign} neon-title`}
-                      paddingTop="20"
-                      paddingBottom="8"
-                      gap="8"
+                      paddingTop="16"
+                      gap="12"
                       wrap
-                      horizontal="center"
-                      fitWidth
-                      data-border="rounded"
+                      horizontal="start"
+                      style={{
+                        justifyContent: "flex-start",
+                      }}
+                      s={{
+                        justifyContent: "center",
+                      }}
                     >
                       {social.map(
                         (item) =>
                           item.link && (
-                            <React.Fragment key={item.name}>
-                              <Row s={{ hide: true }}>
-                                <Button
-                                  className={`${styles.textAlign} neon-title`}
-                                  key={item.name}
-                                  href={item.link}
-                                  prefixIcon={item.icon}
-                                  label={item.name}
-                                  size="s"
-                                  weight="default"
-                                  variant="secondary"
-                                />
-                              </Row>
-                              <Row hide s={{ hide: false }}>
-                                <IconButton
-                                  size="l"
-                                  key={`${item.name}-icon`}
-                                  href={item.link}
-                                  icon={item.icon}
-                                  variant="secondary"
-                                />
-                              </Row>
-                            </React.Fragment>
+                            <Button
+                              key={item.name}
+                              href={item.link}
+                              prefixIcon={item.icon}
+                              label={item.name}
+                              size="s"
+                              variant="secondary"
+                              style={{
+                                minWidth: "fit-content",
+                              }}
+                            />
                           )
                       )}
                     </Row>
                   )}
                 </Column>
               </ScrollReveal>
+            </Column>
+
 
               {about.intro.display && (
-                <Column
-                  textVariant="body-default-l"
-                  fillWidth
-                  gap="m"
-                  marginBottom="xl"
-                >
+                <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
                   {about.intro.description}
                 </Column>
               )}
 
               {about.work.display && (
                 <ScrollReveal translateY={16} delay={0.2}>
-                  <Heading
-                    className={`${styles.textAlign} neon-title`}
-                    as="h2"
-                    id={about.work.title}
-                    variant="heading-strong-xl"
-                    marginBottom="40"
-                  >
-                    {about.work.title}
-                  </Heading>
-                  <Column fillWidth gap="l" marginBottom="40">
-                    {about.work.experiences.map((experience, index) => (
-                      <ScrollReveal
-                        key={`${experience.company}-${experience.role}-${index}`}
-                        translateY={16}
-                        delay={index * 0.1}
-                      >
-                        <Column fillWidth>
-                          <Row
-                            fillWidth
-                            horizontal="between"
-                            vertical="end"
-                            marginBottom="4"
+                  <Column gap="l" marginTop="xl">
+                    <Heading
+                      className="neon-title"
+                      as="h2"
+                      id={about.work.title}
+                      variant="heading-strong-l"
+                      marginBottom="24"
+                    >
+                      {about.work.title}
+                    </Heading>
+
+                    <Column
+                      fillWidth
+                      gap="xl"
+                      style={{
+                        borderLeft: "2px solid rgba(0,200,255,0.25)",
+                        paddingLeft: "24px",
+                      }}
+                    >
+                      {about.work.experiences.map((experience, index) => (
+                        <ScrollReveal
+                          key={`${experience.company}-${experience.role}-${index}`}
+                          translateY={16}
+                          delay={index * 0.1}
+                        >
+                          <Column
+                            gap="12"
+                            style={{
+                              position: "relative",
+                              paddingBottom: "16px",
+                            }}
                           >
+                            {/* neon dot */}
+                            <div
+                              style={{
+                                width: "14px",
+                                height: "14px",
+                                borderRadius: "50%",
+                                background: "#00eaff",
+                                position: "absolute",
+                                left: "-31px",
+                                top: "4px",
+                                boxShadow: "0 0 14px #00eaff",
+                              }}
+                            />
+
+                            <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
+                              <Text variant="heading-strong-m">{experience.company}</Text>
+
+                              <Text variant="heading-default-xs" onBackground="neutral-weak">
+                                {experience.timeframe}
+                              </Text>
+                            </Row>
+
                             <Text
-                              id={experience.company}
-                              variant="heading-strong-m"
+                              variant="body-default-s"
+                              onBackground="brand-weak"
+                              marginBottom="m"
                             >
-                              {experience.company}
+                              {experience.role}
                             </Text>
-                            <Text                            
-                              variant="heading-default-xs"
-                              onBackground="neutral-weak"
-                            >
-                              {experience.timeframe}
-                            </Text>
-                          </Row>
-                          <Text                          
-                            variant="body-default-s"
-                            onBackground="brand-weak"
-                            marginBottom="m"
-                          >
-                            {experience.role}
-                          </Text>
-                          <Column as="ul" gap="16" marginBottom="l">
-                            {experience.achievements.map(
-                              (achievement: React.ReactNode, index: number) => (
-                                <Text
-                                  as="li"
-                                  variant="body-default-m"
-                                  key={`${experience.company}-${index}`}
-                                >
-                                  {achievement}
-                                </Text>
-                              )
-                            )}
-                          </Column>
-                          {experience.images &&
-                            experience.images.length > 0 && (
-                              <Row
-                                fillWidth
-                                paddingTop="m"
-                                paddingLeft="40"
-                                gap="12"
-                                wrap
-                              >
-                                {experience.images.map((image, index) => (
+
+                            <Column as="ul" gap="12" marginBottom="l">
+                              {experience.achievements.map(
+                                (achievement: React.ReactNode, idx: number) => (
+                                  <Text
+                                    as="li"
+                                    variant="body-default-m"
+                                    key={`${experience.company}-${idx}`}
+                                  >
+                                    {achievement}
+                                  </Text>
+                                ),
+                              )}
+                            </Column>
+
+                            {/* Optional images */}
+                            {experience.images && experience.images.length > 0 && (
+                              <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
+                                {experience.images.map((image, imgIndex) => (
                                   <Row
-                                    key={index}
+                                    key={imgIndex}
                                     border="neutral-medium"
                                     radius="m"
                                     minWidth={image.width}
@@ -309,9 +343,10 @@ export default function About() {
                                 ))}
                               </Row>
                             )}
-                        </Column>
-                      </ScrollReveal>
-                    ))}
+                          </Column>
+                        </ScrollReveal>
+                      ))}
+                    </Column>
                   </Column>
                 </ScrollReveal>
               )}
@@ -335,64 +370,43 @@ export default function About() {
                         delay={index * 0.1}
                       >
                         <Column fillWidth>
-                          <Row
-                            fillWidth
-                            horizontal="between"
-                            vertical="end"
-                            marginBottom="m"
-                          >
-                            <Text
-                              id={institution.name}
-                              variant="heading-strong-m"
-                            >
+                          <Row fillWidth horizontal="between" vertical="end" marginBottom="m">
+                            <Text id={institution.name} variant="heading-strong-m">
                               {institution.name}
                             </Text>
                             {institution.timeframe && (
-                              <Text                            
-                                variant="heading-default-xs"
-                                onBackground="neutral-weak"
-                              >
+                              <Text variant="heading-default-xs" onBackground="neutral-weak">
                                 {institution.timeframe}
                               </Text>
                             )}
                           </Row>
                           <Column marginBottom="l">
-                            <Text
-                              variant="body-default-m"
-                              onBackground="neutral-weak"
-                            >
+                            <Text variant="body-default-m" onBackground="neutral-weak">
                               {institution.description}
                             </Text>
                           </Column>
-                          {institution.images &&
-                            institution.images.length > 0 && (
-                              <Row
-                                fillWidth
-                                paddingTop="m"
-                                paddingLeft="40"
-                                gap="12"
-                                wrap
-                              >
-                                {institution.images.map((image, index) => (
-                                  <Row
-                                    key={index}
-                                    border="neutral-medium"
+                          {institution.images && institution.images.length > 0 && (
+                            <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
+                              {institution.images.map((image, index) => (
+                                <Row
+                                  key={index}
+                                  border="neutral-medium"
+                                  radius="m"
+                                  minWidth={image.width}
+                                  height={image.height}
+                                  zIndex={10}
+                                >
+                                  <Media
+                                    enlarge
                                     radius="m"
-                                    minWidth={image.width}
-                                    height={image.height}
-                                    zIndex={10}
-                                  >
-                                    <Media
-                                      enlarge
-                                      radius="m"
-                                      sizes={image.width.toString()}
-                                      alt={image.alt}
-                                      src={image.src}
-                                    />
-                                  </Row>
-                                ))}
-                              </Row>
-                            )}
+                                    sizes={image.width.toString()}
+                                    alt={image.alt}
+                                    src={image.src}
+                                  />
+                                </Row>
+                              ))}
+                            </Row>
+                          )}
                         </Column>
                       </ScrollReveal>
                     ))}
@@ -413,22 +427,12 @@ export default function About() {
                   </Heading>
                   <Column fillWidth gap="l">
                     {about.technical.skills.map((skill, index) => (
-                      <ScrollReveal
-                        key={`${skill}-${index}`}
-                        translateY={16}
-                        delay={index * 0.1}
-                      >
+                      <ScrollReveal key={`${skill}-${index}`} translateY={16} delay={index * 0.1}>
                         <Column fillWidth gap="4">
-                          <Text
-                            id={skill.title}
-                            variant="heading-strong-m"
-                          >
+                          <Text id={skill.title} variant="heading-strong-m">
                             {skill.title}
                           </Text>
-                          <Text
-                            variant="body-default-m"
-                            onBackground="neutral-weak"
-                          >
+                          <Text variant="body-default-m" onBackground="neutral-weak">
                             {skill.description}
                           </Text>
                           {skill.tags && skill.tags.length > 0 && (
@@ -445,7 +449,12 @@ export default function About() {
                             </Row>
                           )}
                           {skill.images && skill.images.length > 0 && (
-                            <Row fillWidth paddingTop="m" gap="12" wrap>
+                            <Row
+                              fillWidth
+                              gap="48"
+                              horizontal="start"
+                              s={{ direction: "column", gap: "32" }}
+                            >
                               {skill.images.map((image, index) => (
                                 <Row
                                   key={index}
@@ -472,7 +481,6 @@ export default function About() {
                   </Column>
                 </ScrollReveal>
               )}
-            </Column>
           </Row>
         </RevealFx>
       </Column>

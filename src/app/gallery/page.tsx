@@ -2,7 +2,6 @@ import { Column, Meta, Schema } from "@once-ui-system/core";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import GalleryView from "@/components/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
-import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -17,7 +16,6 @@ export async function generateMetadata() {
 export default function Gallery() {
   return (
     <>
-      <NeonParticles />
       <Column fillWidth className="relative" style={{ zIndex: 1 }}>
       <Schema
         as="webPage"

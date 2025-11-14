@@ -9,6 +9,7 @@ import {
   SmartLink,
   Text,
 } from "@once-ui-system/core";
+import useParallax from "@/hooks/useParallax";
 
 interface ProjectCardProps {
   href: string;
@@ -19,7 +20,7 @@ interface ProjectCardProps {
   description: string;
   avatars: { src: string }[];
   link: string;
-  cardClass?: string;
+  cardClass?: string; // custom class (neon-border, neon-card, dll)
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -30,62 +31,104 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   avatars,
   link,
+  cardClass,
 }) => {
+  const parallaxRef = useParallax(14); // strength tilt
+
   return (
-    <Column fillWidth gap="m">
-      <Carousel
-        sizes="(max-width: 960px) 100vw, 960px"
-        items={images.map((image) => ({
-          slide: image,
-          alt: title,
-        }))}
-      />
-      <Flex
-        s={{ direction: "column" }}
-        fillWidth
-        paddingX="s"
-        paddingTop="12"
-        paddingBottom="24"
-        gap="l"
-      >
-        {title && (
-          <Flex flex={5}>
-            <Heading as="h2" wrap="balance" variant="heading-strong-xl">
-              {title}
-            </Heading>
-          </Flex>
-        )}
-        {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
-          <Column flex={7} gap="16">
-            {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
-            {description?.trim() && (
-              <Text wrap="balance" variant="body-default-s" onBackground="neutral-weak">
-                {description}
-              </Text>
-            )}
-            <Flex gap="24" wrap>
-              {content?.trim() && (
-                <SmartLink
-                  suffixIcon="arrowRight"
-                  style={{ margin: "0", width: "fit-content" }}
-                  href={href}
-                >
-                  <Text variant="body-default-s">Read case study</Text>
-                </SmartLink>
-              )}
-              {link && (
-                <SmartLink
-                  suffixIcon="arrowUpRightFromSquare"
-                  style={{ margin: "0", width: "fit-content" }}
-                  href={link}
-                >
-                  <Text variant="body-default-s">View project</Text>
-                </SmartLink>
-              )}
+    <div
+      ref={parallaxRef}
+      className={`parallax-card energy-pulse ${cardClass || ""}`}
+      style={{
+        borderRadius: "22px",
+      }}
+    >
+      <Column fillWidth gap="m" style={{ borderRadius: "inherit", overflow: "hidden" }}>
+        
+        {/* Carousel */}
+        <Carousel
+          sizes="(max-width: 960px) 100vw, 960px"
+          items={images.map((image) => ({
+            slide: image,
+            alt: title,
+          }))}
+          style={{
+            borderRadius: "inherit",
+          }}
+        />
+
+        {/* Content */}
+        <Flex
+          s={{ direction: "column" }}
+          fillWidth
+          paddingX="s"
+          paddingTop="12"
+          paddingBottom="24"
+          gap="l"
+          style={{
+            borderRadius: "inherit",
+          }}
+        >
+          {/* Title */}
+          {title && (
+            <Flex flex={5}>
+              <Heading
+                as="h2"
+                wrap="balance"
+                variant="heading-strong-xl"
+              >
+                {title}
+              </Heading>
             </Flex>
-          </Column>
-        )}
-      </Flex>
-    </Column>
+          )}
+
+          {/* Content Body */}
+          {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
+            <Column flex={7} gap="16">
+              
+              {/* Avatar Group */}
+              {avatars?.length > 0 && (
+                <AvatarGroup avatars={avatars} size="m" reverse />
+              )}
+
+              {/* Description */}
+              {description?.trim() && (
+                <Text
+                  wrap="balance"
+                  variant="body-default-s"
+                  onBackground="neutral-weak"
+                >
+                  {description}
+                </Text>
+              )}
+
+              {/* Action links */}
+              <Flex gap="24" wrap>
+                {content?.trim() && (
+                  <SmartLink
+                    suffixIcon="arrowRight"
+                    style={{ margin: 0, width: "fit-content" }}
+                    href={href}
+                  >
+                    <Text variant="body-default-s">Read case study</Text>
+                  </SmartLink>
+                )}
+
+                {link && (
+                  <SmartLink
+                    suffixIcon="arrowUpRightFromSquare"
+                    style={{ margin: 0, width: "fit-content" }}
+                    href={link}
+                  >
+                    <Text variant="body-default-s">View project</Text>
+                  </SmartLink>
+                )}
+              </Flex>
+
+            </Column>
+          )}
+        </Flex>
+      </Column>
+    </div>
   );
 };

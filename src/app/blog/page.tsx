@@ -3,7 +3,6 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { Mailchimp } from "@/components";
 import { Posts } from "@/components/blog/Posts";
 import { baseURL, blog, person, newsletter } from "@/resources";
-import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -18,7 +17,6 @@ export async function generateMetadata() {
 export default function Blog() {
   return (
     <>
-      <NeonParticles />
       <Column fillWidth className="relative" style={{ zIndex: 1 }}>
       <Schema
         as="blogPosting"

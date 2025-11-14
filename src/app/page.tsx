@@ -17,7 +17,6 @@ import { home, about, person, baseURL, routes } from "@/resources";
 import { Mailchimp } from "@/components";
 import { Projects } from "@/components/work/Projects";
 import { Posts } from "@/components/blog/Posts";
-import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -32,7 +31,6 @@ export async function generateMetadata() {
 export default function Home() {
   return (
     <>
-      <NeonParticles />
       <Column
         maxWidth="m"
         gap="xl"

@@ -1,0 +1,29 @@
+.tron-grid-3d {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -3;
+  background: linear-gradient(to bottom, #02030a 0%, #040612 60%, #020308 100%);
+  overflow: hidden;
+}
+
+/* GRID LINES */
+.tron-grid-3d::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--neon-blue) 1px, transparent 1px),
+    linear-gradient(90deg, var(--neon-purple) 1px, transparent 1px);
+  background-size: 200px 200px;
+  transform: perspective(900px) rotateX(70deg) scale(1.6);
+  transform-origin: top;
+  opacity: 0.13;
+  animation: tronFlow 18s linear infinite;
+  filter: drop-shadow(0 0 12px var(--neon-blue));
+}
+
+@keyframes tronFlow {
+  0%   { transform: perspective(900px) rotateX(70deg) scale(1.6) translateY(0); }
+  100% { transform: perspective(900px) rotateX(70deg) scale(1.6) translateY(200px); }
+}

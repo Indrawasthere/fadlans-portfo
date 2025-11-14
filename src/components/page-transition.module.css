@@ -1,0 +1,59 @@
+.transition {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: transparent;
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+}
+
+.active {
+  opacity: 1;
+  animation: glitchFlash 0.35s ease forwards;
+}
+
+@keyframes glitchFlash {
+  0% {
+    background: rgba(0, 255, 255, 0.08);
+    filter: hue-rotate(0deg) contrast(120%);
+  }
+
+  20% {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 0, 150, 0.2),
+        rgba(0, 255, 255, 0.2)
+      ),
+      rgba(0, 200, 255, 0.1);
+    transform: skewX(6deg);
+  }
+
+  40% {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 255, 255, 0.15) 0%,
+      rgba(255, 0, 255, 0.1) 50%,
+      rgba(0, 255, 255, 0.15) 100%
+    );
+    filter: drop-shadow(0 0 12px #00faff);
+    transform: skewX(-4deg);
+  }
+
+  60% {
+    background: rgba(0, 255, 255, 0.12);
+    clip-path: inset(20% 0 40% 0);
+  }
+
+  80% {
+    background: rgba(255, 0, 150, 0.15);
+    transform: skewX(2deg);
+  }
+
+  100% {
+    opacity: 0;
+    background: transparent;
+    transform: none;
+  }
+}

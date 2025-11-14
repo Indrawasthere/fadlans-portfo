@@ -13,7 +13,6 @@ import {
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { baseURL, about, person, work } from "@/resources";
 import { Projects } from "@/components/work/Projects";
-import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -28,7 +27,6 @@ export async function generateMetadata() {
 export default function Work() {
   return (
     <>
-      <NeonParticles />
       <Column fillWidth className="relative" style={{ zIndex: 1 }}>
       <Schema
         as="webPage"
