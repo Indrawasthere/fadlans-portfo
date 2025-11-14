@@ -13,10 +13,10 @@ import {
   Schema,
   Row,
   RevealFx,
+  Line,
 } from "@once-ui-system/core";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { baseURL, about, person, social } from "@/resources";
-import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
 
 export async function generateMetadata() {
@@ -30,34 +30,11 @@ export async function generateMetadata() {
 }
 
 export default function About() {
-  const structure = [
-    {
-      title: about.intro.title,
-      display: about.intro.display,
-      items: [],
-    },
-    {
-      title: about.work.title,
-      display: about.work.display,
-      items: about.work.experiences.map((experience) => experience.company),
-    },
-    {
-      title: about.studies.title,
-      display: about.studies.display,
-      items: about.studies.institutions.map((institution) => institution.name),
-    },
-    {
-      title: about.technical.title,
-      display: about.technical.display,
-      items: about.technical.skills.map((skill) => skill.title),
-    },
-  ];
-
   return (
     <>
       <Column
         fillWidth
-        maxWidth="2xl"
+        maxWidth="xl"
         className="relative"
         style={{ zIndex: 1, paddingTop: "40px", paddingBottom: "80px" }}
       >
@@ -74,255 +51,299 @@ export default function About() {
             image: `${baseURL}${person.avatar}`,
           }}
         />
-        <RevealFx translateY="16" delay={0.2}>
-          {about.tableOfContent.display && (
-            <Column
-              left="0"
-              style={{ top: "50%", transform: "translateY(-50%)" }}
-              position="fixed"
-              paddingLeft="24"
-              gap="32"
-              zIndex={-1}
-              s={{ hide: true }}
+
+        {/* MAIN NEON GLASS CARD CONTAINER */}
+        <RevealFx translateY="16" delay={0.1}>
+          <Column
+            fillWidth
+            padding="xl"
+            radius="32"
+            className="energy-pulse"
+            style={{
+              border: "1px solid rgba(0,255,255,0.25)",
+              background: "rgba(10,10,20,0.45)",
+              backdropFilter: "blur(14px)",
+              boxShadow: "0 0 30px rgba(0,255,255,0.25)",
+            }}
+            s={{
+              padding: "l",
+            }}
+          >
+            {/* ===== TOP HERO SECTION ===== */}
+            <Row
+              fillWidth
+              gap="48"
+              horizontal="start"
+              s={{
+                direction: "column",
+                gap: "32",
+              }}
             >
-              <TableOfContents structure={structure} about={about} />
-            </Column>
-          )}
-          <Row fillWidth gap="48" horizontal="start" s={{ direction: "column", gap: "32" }}>
-            {about.avatar.display && (
+              {/* LEFT: Avatar + Location + Languages */}
+              {about.avatar.display && (
+                <ScrollReveal translateY={16} delay={0.15}>
+                  <Column
+                    minWidth="240"
+                    maxWidth="240"
+                    gap="l"
+                    s={{
+                      minWidth: "100%",
+                      maxWidth: "100%",
+                    }}
+                  >
+                    <Avatar src={person.avatar} size="xl" />
+                    <Row gap="8" vertical="center">
+                      <Icon onBackground="accent-weak" name="globe" />
+                      <Text variant="body-default-s">{person.location}</Text>
+                    </Row>
+                    {person.languages && person.languages.length > 0 && (
+                      <Row wrap gap="8">
+                        {person.languages.map((language, index) => (
+                          <Tag key={index} size="l" className="neon-border">
+                            {language}
+                          </Tag>
+                        ))}
+                      </Row>
+                    )}
+                  </Column>
+                </ScrollReveal>
+              )}
+
+              {/* RIGHT: Name, Title, Calendar, Social, Intro */}
               <Column
-                minWidth="300"
-                maxWidth="300"
+                flex={9}
                 gap="l"
-                className="neon-card"
-                style={{
-                  padding: "24px",
-                  borderRadius: "20px",
-                  background: "rgba(20,20,30,0.4)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(80,200,255,0.25)",
-                  boxShadow: "0 0 25px rgba(0,180,255,0.25)",
-                }}
                 s={{
-                  minWidth: "100%",
                   maxWidth: "100%",
                 }}
               >
-                <Avatar src={person.avatar} size="xl" />
-                <Row gap="8" vertical="center">
-                  <Icon onBackground="accent-weak" name="globe" />
-                  {person.location}
-                </Row>
-                {person.languages && person.languages.length > 0 && (
-                  <Row wrap gap="8">
-                    {person.languages.map((language, index) => (
-                      <Tag key={index} size="l">
-                        {language}
-                      </Tag>
-                    ))}
-                  </Row>
-                )}
-              </Column>
-            )}
-            <Column
-              className={styles.blockAlign}
-              flex={9}
-              gap="l"
-              style={{
-                maxWidth: "100%",
-              }}
-            >
-              <ScrollReveal translateY={16} delay={0.1}>
-                <Column
-                  id={about.intro.title}
-                  fillWidth
-                  gap="16"
-                  marginBottom="40"
-                  style={{
-                    alignItems: "flex-start",
-                    textAlign: "left",
-                  }}
-                  s={{
-                    alignItems: "center",
-                    textAlign: "center",
-                  }}
-                >
-                  {/* Calendar Button */}
-                  {about.calendar.display && (
-                    <Row
-                      fitWidth
-                      border="brand-alpha-medium"
-                      background="brand-alpha-weak"
-                      radius="full"
-                      padding="4"
-                      gap="8"
-                      marginBottom="m"
-                      vertical="center"
-                      style={{
-                        backdropFilter: "blur(10px)",
-                      }}
-                    >
-                      <Icon
-                        paddingLeft="12"
-                        name="calendar"
-                        onBackground="brand-weak"
-                      />
-                      <Row paddingX="8">Schedule a call</Row>
-                      <IconButton
-                        href={about.calendar.link}
-                        data-border="rounded"
-                        variant="secondary"
-                        icon="chevronRight"
-                      />
-                    </Row>
-                  )}
-
-                  {/* NAME */}
-                  <Heading
-                    className="neon-title"
-                    variant="display-strong-xl"
-                    style={{
-                      lineHeight: "1.1",
-                    }}
-                  >
-                    {person.name}
-                  </Heading>
-                  
-                  {/* ROLE */}
-                  <Text
-                    variant="heading-default-l"
-                    onBackground="neutral-weak"
-                    style={{
-                      marginTop: "-4px",
-                    }}
-                  >
-                    {person.role}
-                  </Text>
-                  
-                  {/* Social Buttons */}
-                  {social.length > 0 && (
-                    <Row
-                      paddingTop="16"
-                      gap="12"
-                      wrap
-                      horizontal="start"
-                      style={{
-                        justifyContent: "flex-start",
-                      }}
-                      s={{
-                        justifyContent: "center",
-                      }}
-                    >
-                      {social.map(
-                        (item) =>
-                          item.link && (
-                            <Button
-                              key={item.name}
-                              href={item.link}
-                              prefixIcon={item.icon}
-                              label={item.name}
-                              size="s"
-                              variant="secondary"
-                              style={{
-                                minWidth: "fit-content",
-                              }}
-                            />
-                          )
-                      )}
-                    </Row>
-                  )}
-                </Column>
-              </ScrollReveal>
-            </Column>
-
-
-              {about.intro.display && (
-                <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
-                  {about.intro.description}
-                </Column>
-              )}
-
-              {about.work.display && (
                 <ScrollReveal translateY={16} delay={0.2}>
-                  <Column gap="l" marginTop="xl">
+                  <Column
+                    fillWidth
+                    gap="16"
+                    style={{
+                      alignItems: "flex-start",
+                      textAlign: "left",
+                    }}
+                    s={{
+                      alignItems: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    {/* Calendar Button */}
+                    {about.calendar.display && (
+                      <Row
+                        fitWidth
+                        border="brand-alpha-medium"
+                        background="brand-alpha-weak"
+                        radius="full"
+                        padding="4"
+                        gap="8"
+                        marginBottom="m"
+                        vertical="center"
+                        style={{
+                          backdropFilter: "blur(10px)",
+                        }}
+                      >
+                        <Icon
+                          paddingLeft="12"
+                          name="calendar"
+                          onBackground="brand-weak"
+                        />
+                        <Row paddingX="8">Schedule a call</Row>
+                        <IconButton
+                          href={about.calendar.link}
+                          data-border="rounded"
+                          variant="secondary"
+                          icon="chevronRight"
+                        />
+                      </Row>
+                    )}
+
+                    {/* NAME */}
                     <Heading
                       className="neon-title"
-                      as="h2"
-                      id={about.work.title}
-                      variant="heading-strong-l"
-                      marginBottom="24"
-                    >
-                      {about.work.title}
-                    </Heading>
-
-                    <Column
-                      fillWidth
-                      gap="xl"
+                      variant="display-strong-xl"
                       style={{
-                        borderLeft: "2px solid rgba(0,200,255,0.25)",
-                        paddingLeft: "24px",
+                        lineHeight: "1.1",
                       }}
                     >
-                      {about.work.experiences.map((experience, index) => (
-                        <ScrollReveal
-                          key={`${experience.company}-${experience.role}-${index}`}
-                          translateY={16}
-                          delay={index * 0.1}
+                      {person.name}
+                    </Heading>
+
+                    {/* ROLE */}
+                    <Text
+                      variant="heading-default-l"
+                      onBackground="neutral-weak"
+                      style={{
+                        marginTop: "-4px",
+                      }}
+                    >
+                      {person.role}
+                    </Text>
+
+                    {/* Social Buttons */}
+                    {social.length > 0 && (
+                      <Row
+                        paddingTop="16"
+                        gap="12"
+                        wrap
+                        horizontal="start"
+                        s={{
+                          horizontal: "center",
+                        }}
+                      >
+                        {social.map(
+                          (item) =>
+                            item.link && (
+                              <Button
+                                key={item.name}
+                                href={item.link}
+                                prefixIcon={item.icon}
+                                label={item.name}
+                                size="s"
+                                variant="secondary"
+                                className="neon-border"
+                                style={{
+                                  minWidth: "fit-content",
+                                }}
+                              />
+                            )
+                        )}
+                      </Row>
+                    )}
+                  </Column>
+                </ScrollReveal>
+
+                {/* INTRO TEXT */}
+                {about.intro.display && (
+                  <ScrollReveal translateY={16} delay={0.25}>
+                    <Column textVariant="body-default-l" fillWidth gap="m">
+                      {about.intro.description}
+                    </Column>
+                  </ScrollReveal>
+                )}
+              </Column>
+            </Row>
+
+            {/* NEON DIVIDER LINE */}
+            <Row
+              fillWidth
+              horizontal="center"
+              marginTop="xl"
+              marginBottom="xl"
+            >
+              <Line
+                maxWidth="100%"
+                style={{
+                  background: "rgba(0,255,255,0.25)",
+                  boxShadow: "0 0 10px rgba(0,255,255,0.5)",
+                }}
+              />
+            </Row>
+
+            {/* ===== WORK EXPERIENCE SECTION ===== */}
+            {about.work.display && (
+              <ScrollReveal translateY={16} delay={0.3}>
+                <Column fillWidth gap="l" marginBottom="xl">
+                  <Heading
+                    className="neon-title"
+                    as="h2"
+                    id={about.work.title}
+                    variant="heading-strong-l"
+                    marginBottom="24"
+                  >
+                    {about.work.title}
+                  </Heading>
+
+                  <Column
+                    fillWidth
+                    gap="xl"
+                    style={{
+                      borderLeft: "2px solid rgba(0,200,255,0.25)",
+                      paddingLeft: "24px",
+                    }}
+                  >
+                    {about.work.experiences.map((experience, index) => (
+                      <ScrollReveal
+                        key={`${experience.company}-${experience.role}-${index}`}
+                        translateY={16}
+                        delay={index * 0.1}
+                      >
+                        <Column
+                          fillWidth
+                          gap="12"
+                          style={{
+                            position: "relative",
+                            paddingBottom: "16px",
+                          }}
                         >
-                          <Column
-                            gap="12"
+                          {/* Neon dot on timeline */}
+                          <div
                             style={{
-                              position: "relative",
-                              paddingBottom: "16px",
+                              width: "14px",
+                              height: "14px",
+                              borderRadius: "50%",
+                              background: "#00eaff",
+                              position: "absolute",
+                              left: "-31px",
+                              top: "4px",
+                              boxShadow: "0 0 14px #00eaff",
                             }}
+                          />
+
+                          {/* Company & Timeframe */}
+                          <Row
+                            fillWidth
+                            horizontal="between"
+                            vertical="end"
+                            marginBottom="4"
                           >
-                            {/* neon dot */}
-                            <div
-                              style={{
-                                width: "14px",
-                                height: "14px",
-                                borderRadius: "50%",
-                                background: "#00eaff",
-                                position: "absolute",
-                                left: "-31px",
-                                top: "4px",
-                                boxShadow: "0 0 14px #00eaff",
-                              }}
-                            />
-
-                            <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
-                              <Text variant="heading-strong-m">{experience.company}</Text>
-
-                              <Text variant="heading-default-xs" onBackground="neutral-weak">
-                                {experience.timeframe}
-                              </Text>
-                            </Row>
-
-                            <Text
-                              variant="body-default-s"
-                              onBackground="brand-weak"
-                              marginBottom="m"
-                            >
-                              {experience.role}
+                            <Text variant="heading-strong-m">
+                              {experience.company}
                             </Text>
+                            <Text
+                              variant="heading-default-xs"
+                              onBackground="neutral-weak"
+                            >
+                              {experience.timeframe}
+                            </Text>
+                          </Row>
 
-                            <Column as="ul" gap="12" marginBottom="l">
-                              {experience.achievements.map(
-                                (achievement: React.ReactNode, idx: number) => (
-                                  <Text
-                                    as="li"
-                                    variant="body-default-m"
-                                    key={`${experience.company}-${idx}`}
-                                  >
-                                    {achievement}
-                                  </Text>
-                                ),
-                              )}
-                            </Column>
+                          {/* Role */}
+                          <Text
+                            variant="body-default-s"
+                            onBackground="brand-weak"
+                            marginBottom="m"
+                          >
+                            {experience.role}
+                          </Text>
 
-                            {/* Optional images */}
-                            {experience.images && experience.images.length > 0 && (
-                              <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
+                          {/* Achievements */}
+                          <Column as="ul" gap="12" marginBottom="l">
+                            {experience.achievements.map(
+                              (achievement: React.ReactNode, idx: number) => (
+                                <Text
+                                  as="li"
+                                  variant="body-default-m"
+                                  key={`${experience.company}-${idx}`}
+                                >
+                                  {achievement}
+                                </Text>
+                              )
+                            )}
+                          </Column>
+
+                          {/* Optional Images */}
+                          {experience.images &&
+                            experience.images.length > 0 && (
+                              <Row
+                                fillWidth
+                                paddingTop="m"
+                                paddingLeft="40"
+                                gap="12"
+                                wrap
+                              >
                                 {experience.images.map((image, imgIndex) => (
                                   <Row
                                     key={imgIndex}
@@ -343,145 +364,224 @@ export default function About() {
                                 ))}
                               </Row>
                             )}
-                          </Column>
-                        </ScrollReveal>
-                      ))}
-                    </Column>
+                        </Column>
+                      </ScrollReveal>
+                    ))}
                   </Column>
-                </ScrollReveal>
-              )}
+                </Column>
+              </ScrollReveal>
+            )}
 
-              {about.studies.display && (
-                <ScrollReveal translateY={16} delay={0.3}>
+            {/* ===== TECHNICAL SKILLS SECTION ===== */}
+            {about.technical.display && (
+              <ScrollReveal translateY={16} delay={0.4}>
+                <Column fillWidth gap="l">
                   <Heading
-                    className={`${styles.textAlign} neon-title`}
+                    className="neon-title"
+                    as="h2"
+                    id={about.technical.title}
+                    variant="heading-strong-l"
+                    marginBottom="24"
+                  >
+                    {about.technical.title}
+                  </Heading>
+
+                  <Column fillWidth gap="l">
+                    {about.technical.skills.map((skill, index) => (
+                      <ScrollReveal
+                        key={`${skill.title}-${index}`}
+                        translateY={16}
+                        delay={index * 0.1}
+                      >
+                        <Column
+                          fillWidth
+                          gap="12"
+                          padding="l"
+                          radius="m"
+                          style={{
+                            border: "1px solid rgba(0,200,255,0.15)",
+                            background: "rgba(0,200,255,0.05)",
+                          }}
+                        >
+                          {/* Skill Title & Badges Row */}
+                          <Row
+                            fillWidth
+                            horizontal="between"
+                            vertical="start"
+                            gap="16"
+                            s={{
+                              direction: "column",
+                            }}
+                          >
+                            <Heading
+                              as="h3"
+                              variant="heading-strong-m"
+                              style={{ flex: 1 }}
+                            >
+                              {skill.title}
+                            </Heading>
+
+                            {/* Badges */}
+                            {skill.tags && skill.tags.length > 0 && (
+                              <Row wrap gap="8">
+                                {skill.tags.map((tag, tagIndex) => (
+                                  <Tag
+                                    key={`${skill.title}-${tagIndex}`}
+                                    size="l"
+                                    prefixIcon={tag.icon}
+                                    className="neon-border"
+                                  >
+                                    {tag.name}
+                                  </Tag>
+                                ))}
+                              </Row>
+                            )}
+                          </Row>
+
+                          {/* Description */}
+                          <Text
+                            variant="body-default-m"
+                            onBackground="neutral-weak"
+                          >
+                            {skill.description}
+                          </Text>
+
+                          {/* Optional Images */}
+                          {skill.images && skill.images.length > 0 && (
+                            <Row
+                              fillWidth
+                              gap="16"
+                              horizontal="start"
+                              wrap
+                              paddingTop="m"
+                            >
+                              {skill.images.map((image, imgIndex) => (
+                                <Row
+                                  key={imgIndex}
+                                  border="neutral-medium"
+                                  radius="m"
+                                  minWidth={image.width}
+                                  height={image.height}
+                                  zIndex={10}
+                                >
+                                  <Media
+                                    enlarge
+                                    radius="m"
+                                    sizes={image.width.toString()}
+                                    alt={image.alt}
+                                    src={image.src}
+                                  />
+                                </Row>
+                              ))}
+                            </Row>
+                          )}
+                        </Column>
+                      </ScrollReveal>
+                    ))}
+                  </Column>
+                </Column>
+              </ScrollReveal>
+            )}
+
+            {/* ===== STUDIES SECTION ===== */}
+            {about.studies.display && (
+              <ScrollReveal translateY={16} delay={0.5}>
+                <Column fillWidth gap="l" marginTop="xl">
+                  <Heading
+                    className="neon-title"
                     as="h2"
                     id={about.studies.title}
-                    variant="heading-strong-xl"
-                    marginBottom="40"
+                    variant="heading-strong-l"
+                    marginBottom="24"
                   >
                     {about.studies.title}
                   </Heading>
-                  <Column fillWidth gap="l" marginBottom="40">
+
+                  <Column fillWidth gap="l">
                     {about.studies.institutions.map((institution, index) => (
                       <ScrollReveal
                         key={`${institution.name}-${index}`}
                         translateY={16}
                         delay={index * 0.1}
                       >
-                        <Column fillWidth>
-                          <Row fillWidth horizontal="between" vertical="end" marginBottom="m">
-                            <Text id={institution.name} variant="heading-strong-m">
+                        <Column
+                          fillWidth
+                          gap="12"
+                          padding="l"
+                          radius="m"
+                          style={{
+                            border: "1px solid rgba(0,200,255,0.15)",
+                            background: "rgba(0,200,255,0.05)",
+                          }}
+                        >
+                          {/* Institution Name & Timeframe */}
+                          <Row
+                            fillWidth
+                            horizontal="between"
+                            vertical="end"
+                          >
+                            <Heading
+                              as="h3"
+                              variant="heading-strong-m"
+                              id={institution.name}
+                            >
                               {institution.name}
-                            </Text>
+                            </Heading>
                             {institution.timeframe && (
-                              <Text variant="heading-default-xs" onBackground="neutral-weak">
+                              <Text
+                                variant="heading-default-xs"
+                                onBackground="neutral-weak"
+                              >
                                 {institution.timeframe}
                               </Text>
                             )}
                           </Row>
-                          <Column marginBottom="l">
-                            <Text variant="body-default-m" onBackground="neutral-weak">
-                              {institution.description}
-                            </Text>
-                          </Column>
-                          {institution.images && institution.images.length > 0 && (
-                            <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
-                              {institution.images.map((image, index) => (
-                                <Row
-                                  key={index}
-                                  border="neutral-medium"
-                                  radius="m"
-                                  minWidth={image.width}
-                                  height={image.height}
-                                  zIndex={10}
-                                >
-                                  <Media
-                                    enlarge
-                                    radius="m"
-                                    sizes={image.width.toString()}
-                                    alt={image.alt}
-                                    src={image.src}
-                                  />
-                                </Row>
-                              ))}
-                            </Row>
-                          )}
-                        </Column>
-                      </ScrollReveal>
-                    ))}
-                  </Column>
-                </ScrollReveal>
-              )}
 
-              {about.technical.display && (
-                <ScrollReveal translateY={16} delay={0.4}>
-                  <Heading
-                    className={`${styles.textAlign} neon-title`}
-                    as="h2"
-                    id={about.technical.title}
-                    variant="heading-strong-xl"
-                    marginBottom="40"
-                  >
-                    {about.technical.title}
-                  </Heading>
-                  <Column fillWidth gap="l">
-                    {about.technical.skills.map((skill, index) => (
-                      <ScrollReveal key={`${skill}-${index}`} translateY={16} delay={index * 0.1}>
-                        <Column fillWidth gap="4">
-                          <Text id={skill.title} variant="heading-strong-m">
-                            {skill.title}
+                          {/* Description */}
+                          <Text
+                            variant="body-default-m"
+                            onBackground="neutral-weak"
+                          >
+                            {institution.description}
                           </Text>
-                          <Text variant="body-default-m" onBackground="neutral-weak">
-                            {skill.description}
-                          </Text>
-                          {skill.tags && skill.tags.length > 0 && (
-                            <Row wrap gap="8" paddingTop="8">
-                              {skill.tags.map((tag, tagIndex) => (
-                                <Tag
-                                  key={`${skill.title}-${tagIndex}`}
-                                  size="l"
-                                  prefixIcon={tag.icon}
-                                >
-                                  {tag.name}
-                                </Tag>
-                              ))}
-                            </Row>
-                          )}
-                          {skill.images && skill.images.length > 0 && (
-                            <Row
-                              fillWidth
-                              gap="48"
-                              horizontal="start"
-                              s={{ direction: "column", gap: "32" }}
-                            >
-                              {skill.images.map((image, index) => (
-                                <Row
-                                  key={index}
-                                  border="neutral-medium"
-                                  radius="m"
-                                  minWidth={image.width}
-                                  height={image.height}
-                                  zIndex={10}
-                                >
-                                  <Media
-                                    enlarge
+
+                          {/* Optional Images */}
+                          {institution.images &&
+                            institution.images.length > 0 && (
+                              <Row
+                                fillWidth
+                                paddingTop="m"
+                                gap="12"
+                                wrap
+                              >
+                                {institution.images.map((image, imgIndex) => (
+                                  <Row
+                                    key={imgIndex}
+                                    border="neutral-medium"
                                     radius="m"
-                                    sizes={image.width.toString()}
-                                    alt={image.alt}
-                                    src={image.src}
-                                  />
-                                </Row>
-                              ))}
-                            </Row>
-                          )}
+                                    minWidth={image.width}
+                                    height={image.height}
+                                    zIndex={10}
+                                  >
+                                    <Media
+                                      enlarge
+                                      radius="m"
+                                      sizes={image.width.toString()}
+                                      alt={image.alt}
+                                      src={image.src}
+                                    />
+                                  </Row>
+                                ))}
+                              </Row>
+                            )}
                         </Column>
                       </ScrollReveal>
                     ))}
                   </Column>
-                </ScrollReveal>
-              )}
-          </Row>
+                </Column>
+              </ScrollReveal>
+            )}
+          </Column>
         </RevealFx>
       </Column>
     </>
