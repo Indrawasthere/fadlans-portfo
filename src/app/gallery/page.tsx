@@ -1,7 +1,8 @@
-import { Flex, Meta, Schema, RevealFx } from "@once-ui-system/core";
+import { Column, Meta, Schema } from "@once-ui-system/core";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import GalleryView from "@/components/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
+import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -15,7 +16,9 @@ export async function generateMetadata() {
 
 export default function Gallery() {
   return (
-    <Flex maxWidth="l">
+    <>
+      <NeonParticles />
+      <Column fillWidth className="relative" style={{ zIndex: 1 }}>
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -29,9 +32,18 @@ export default function Gallery() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <ScrollReveal translateY={16} delay={0.2}>
-        <GalleryView />
-      </ScrollReveal>
-    </Flex>
+      <Column 
+        fillWidth 
+        paddingX="xl" 
+        maxWidth="l" 
+        style={{ margin: "0 auto" }}
+        paddingTop="24"
+      >
+        <ScrollReveal translateY={16} delay={0.2}>
+          <GalleryView />
+        </ScrollReveal>
+      </Column>
+      </Column>
+    </>
   );
 }

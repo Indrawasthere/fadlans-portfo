@@ -1,0 +1,114 @@
+// Arcade background pattern dengan animasi blur bergerak - FULL SCREEN
+.neon-arcade-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image: 
+      // Grid pattern arcade
+      linear-gradient(rgba(77, 243, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77, 243, 255, 0.08) 1px, transparent 1px),
+      // Diagonal lines pattern
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(177, 76, 255, 0.06) 10px,
+        rgba(177, 76, 255, 0.06) 20px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 68, 204, 0.06) 10px,
+        rgba(255, 68, 204, 0.06) 20px
+      );
+    background-size: 
+      50px 50px,
+      50px 50px,
+      100px 100px,
+      100px 100px;
+    background-position: 
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+    animation: arcadeMove 20s linear infinite;
+    filter: blur(2px);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  &::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(77, 243, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(177, 76, 255, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(255, 68, 204, 0.1) 0%, transparent 60%),
+      radial-gradient(circle at 10% 60%, rgba(77, 243, 255, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 30%, rgba(177, 76, 255, 0.08) 0%, transparent 40%);
+    animation: arcadePulse 15s ease-in-out infinite;
+    filter: blur(60px);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// Wrapper untuk content agar di atas background
+.neon-arcade-content {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes arcadeMove {
+  0% {
+    background-position: 
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position: 
+      50px 50px,
+      50px 50px,
+      100px 100px,
+      -100px 100px;
+  }
+}
+
+@keyframes arcadePulse {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translate(5%, -5%) scale(1.1);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translate(-5%, 5%) scale(0.9);
+    opacity: 0.5;
+  }
+}
+

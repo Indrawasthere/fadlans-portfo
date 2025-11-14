@@ -121,6 +121,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
               radius="l"
               marginTop="12"
               marginBottom="8"
+              enlarge
             />
           )}
           <Column as="article" maxWidth="s">

@@ -17,8 +17,7 @@ import { home, about, person, baseURL, routes } from "@/resources";
 import { Mailchimp } from "@/components";
 import { Projects } from "@/components/work/Projects";
 import { Posts } from "@/components/blog/Posts";
-import { NeonParticles } from "@/components/NeonParticles"
-import styles from "@/styles/home.module.scss"; // TARO file SCSS kecil untuk extra neon
+import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -32,16 +31,16 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <Column
-      maxWidth="m"
-      gap="xl"
-      paddingY="12"
-      horizontal="center"
-      className="relative neon-arcade-bg"
-    >
-
-      {/* Neon particle overlay */}
-      <div className="absolute inset-0 neon-grid opacity-20 pointer-events-none"></div>
+    <>
+      <NeonParticles />
+      <Column
+        maxWidth="m"
+        gap="xl"
+        paddingY="12"
+        horizontal="center"
+        className="relative"
+        style={{ zIndex: 1 }}
+      >
 
       <Schema
         as="webPage"
@@ -172,6 +171,7 @@ export default function Home() {
         <Mailchimp />
       </ScrollReveal>
 
-    </Column>
+      </Column>
+    </>
   );
 }

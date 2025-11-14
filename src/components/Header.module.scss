@@ -8,6 +8,32 @@
     mask-size: 100% 100%;
 }
 
+.neonNavbar {
+    border: 1px solid var(--neon-purple) !important;
+    box-shadow: 
+        0 0 20px rgba(177, 76, 255, 0.4),
+        0 0 40px rgba(177, 76, 255, 0.2),
+        inset 0 0 20px rgba(177, 76, 255, 0.1);
+    
+    // Glow effect untuk selected button
+    :global([data-selected="true"]) {
+        box-shadow: 0 0 15px rgba(177, 76, 255, 0.6);
+    }
+    
+    // Light mode adjustments
+    [data-theme="light"] & {
+        border: 1px solid var(--neon-purple) !important;
+        box-shadow: 
+            0 0 15px rgba(139, 46, 204, 0.5),
+            0 0 30px rgba(139, 46, 204, 0.3),
+            inset 0 0 15px rgba(139, 46, 204, 0.15);
+        
+        :global([data-selected="true"]) {
+            box-shadow: 0 0 12px rgba(139, 46, 204, 0.7);
+        }
+    }
+}
+
 @media (max-width: breakpoints.$s) {
     .position {
         top: auto;

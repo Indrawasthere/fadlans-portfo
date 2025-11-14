@@ -146,7 +146,17 @@ const about: About = {
     institutions: [
       {
         name: "Binus University",
+        timeframe: "2020 - 2024",
         description: <>Studied Computer Science.</>,
+        images: [
+          // optional: leave the array empty if you don't want to display images
+          // {
+          //   src: "/images/diploma.jpg",
+          //   alt: "Diploma",
+          //   width: 16,
+          //   height: 9,
+          // },
+        ],
       },
     ],
   },

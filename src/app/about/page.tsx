@@ -18,6 +18,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
+import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -55,8 +56,8 @@ export default function About() {
 
   return (
     <>
-      <Column maxWidth="m" className="neon-arcade-bg relative">
-        <div className="pointer-events-none absolute inset-0 neon-grid"></div>
+      <NeonParticles />
+      <Column fillWidth maxWidth="m" className="relative" style={{ zIndex: 1 }}>
         <Schema
           as="webPage"
           baseURL={baseURL}
@@ -270,7 +271,6 @@ export default function About() {
                             {experience.achievements.map(
                               (achievement: React.ReactNode, index: number) => (
                                 <Text
-                                  
                                   as="li"
                                   variant="body-default-m"
                                   key={`${experience.company}-${index}`}
@@ -327,26 +327,72 @@ export default function About() {
                   >
                     {about.studies.title}
                   </Heading>
-                  <Column fillWidth gap="l">
+                  <Column fillWidth gap="l" marginBottom="40">
                     {about.studies.institutions.map((institution, index) => (
                       <ScrollReveal
                         key={`${institution.name}-${index}`}
                         translateY={16}
                         delay={index * 0.1}
                       >
-                        <Column fillWidth gap="4">
-                          <Text
-                            id={institution.name}
-                            variant="heading-strong-m"
+                        <Column fillWidth>
+                          <Row
+                            fillWidth
+                            horizontal="between"
+                            vertical="end"
+                            marginBottom="m"
                           >
-                            {institution.name}
-                          </Text>
-                          <Text
-                            variant="body-default-m"
-                            onBackground="neutral-weak"
-                          >
-                            {institution.description}
-                          </Text>
+                            <Text
+                              id={institution.name}
+                              variant="heading-strong-m"
+                            >
+                              {institution.name}
+                            </Text>
+                            {institution.timeframe && (
+                              <Text                            
+                                variant="heading-default-xs"
+                                onBackground="neutral-weak"
+                              >
+                                {institution.timeframe}
+                              </Text>
+                            )}
+                          </Row>
+                          <Column marginBottom="l">
+                            <Text
+                              variant="body-default-m"
+                              onBackground="neutral-weak"
+                            >
+                              {institution.description}
+                            </Text>
+                          </Column>
+                          {institution.images &&
+                            institution.images.length > 0 && (
+                              <Row
+                                fillWidth
+                                paddingTop="m"
+                                paddingLeft="40"
+                                gap="12"
+                                wrap
+                              >
+                                {institution.images.map((image, index) => (
+                                  <Row
+                                    key={index}
+                                    border="neutral-medium"
+                                    radius="m"
+                                    minWidth={image.width}
+                                    height={image.height}
+                                    zIndex={10}
+                                  >
+                                    <Media
+                                      enlarge
+                                      radius="m"
+                                      sizes={image.width.toString()}
+                                      alt={image.alt}
+                                      src={image.src}
+                                    />
+                                  </Row>
+                                ))}
+                              </Row>
+                            )}
                         </Column>
                       </ScrollReveal>
                     ))}
@@ -380,7 +426,6 @@ export default function About() {
                             {skill.title}
                           </Text>
                           <Text
-                            
                             variant="body-default-m"
                             onBackground="neutral-weak"
                           >

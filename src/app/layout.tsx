@@ -46,6 +46,7 @@ export default async function RootLayout({
       )}
     >
       <head>
+        <link rel="icon" href="/favicon.ico?v=2" />
         <script
           id="theme-init"
           dangerouslySetInnerHTML={{

@@ -13,6 +13,7 @@ import {
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { baseURL, about, person, work } from "@/resources";
 import { Projects } from "@/components/work/Projects";
+import NeonParticles from "@/components/NeonParticles";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -26,7 +27,9 @@ export async function generateMetadata() {
 
 export default function Work() {
   return (
-    <Column maxWidth="m">
+    <>
+      <NeonParticles />
+      <Column fillWidth className="relative" style={{ zIndex: 1 }}>
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -41,21 +44,28 @@ export default function Work() {
         }}
       />
       <RevealFx translateY="16" delay={0.2}>
-        <Row fillWidth s={{ direction: "column"}} horizontal="center">
+        <Row 
+          fillWidth 
+          s={{ direction: "column" }} 
+          horizontal="center"
+          paddingX="xl"
+          maxWidth="l"
+          style={{ margin: "0 auto" }}
+        >
           <Column
             top="64"
             fitHeight
             position="sticky"
             s={{ position: "relative", style: { top: "auto" } }}
             xs={{ style: { top: "auto" } }}
-            minWidth="160"
-            paddingX="l"
+            minWidth="240"
+            paddingX="xl"
             paddingBottom="xl"
-            gap="m"
+            gap="l"
             flex={3}
             horizontal="center"
           >
-            <Avatar src={person.avatar} size="xl" />
+            <Avatar src={person.avatar} size="xl" style={{ width: "200px", height: "200px" }} />
             <Row gap="8" vertical="center">
               <Icon onBackground="accent-weak" name="globe" />
               {person.location}
@@ -70,9 +80,9 @@ export default function Work() {
               </Row>
             )}
           </Column>
-          <Column flex={9} maxWidth={40}>
+          <Column flex={9} maxWidth={50} paddingX="xl">
             <ScrollReveal translateY={16} delay={0.1}>
-              <Heading marginBottom="l" variant="heading-strong-xl" align="center">
+              <Heading marginBottom="l" variant="heading-strong-xl" align="center" className="neon-title">
                 {work.title}
               </Heading>
             </ScrollReveal>
@@ -82,6 +92,7 @@ export default function Work() {
           </Column>
         </Row>
       </RevealFx>
-    </Column>
+      </Column>
+    </>
   );
 }

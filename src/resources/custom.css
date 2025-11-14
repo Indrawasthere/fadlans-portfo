@@ -8,9 +8,26 @@
 .media-enlarge-modal,
 [aria-modal="true"],
 .modal,
-.enlarge-preview {
+.enlarge-preview,
+dialog {
   z-index: 9999 !important;
   position: fixed !important;
+}
+
+/* Backdrop blur untuk image preview modal - target semua kemungkinan selector */
+.once-ui-modal::backdrop,
+[data-once-ui-modal]::backdrop,
+[role="dialog"]::backdrop,
+.enlarge-overlay::backdrop,
+.media-enlarge-modal::backdrop,
+[aria-modal="true"]::backdrop,
+.modal::backdrop,
+.enlarge-preview::backdrop,
+dialog::backdrop {
+  z-index: 9998 !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  background: rgba(0, 0, 0, 0.75) !important;
 }
 
 /* Additional styles if needed for modal backdrop */
@@ -18,6 +35,79 @@
 .modal-backdrop,
 .backdrop {
   z-index: 9998 !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+}
+
+/* Pastikan semua content di belakang blur ketika modal terbuka */
+body:has([aria-modal="true"]),
+body:has(.once-ui-modal),
+body:has([data-once-ui-modal]),
+body:has(.enlarge-preview),
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Fix untuk image preview agar full screen dan tidak ada text di depan */
+[data-once-ui-modal] img,
+.enlarge-preview img,
+.media-enlarge-modal img,
+[role="dialog"] img,
+dialog[open] img {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  object-fit: contain !important;
+  z-index: 10000 !important;
+  position: relative !important;
+}
+
+/* Pastikan modal container full screen dan center */
+[data-once-ui-modal],
+.enlarge-preview,
+.media-enlarge-modal,
+[role="dialog"],
+dialog[open] {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Pastikan tidak ada text atau element lain di dalam modal - lebih spesifik */
+[data-once-ui-modal] > *:not(img):not(picture),
+.enlarge-preview > *:not(img):not(picture),
+.media-enlarge-modal > *:not(img):not(picture),
+[role="dialog"] > *:not(img):not(picture),
+dialog[open] > *:not(img):not(picture),
+[data-once-ui-modal] p,
+[data-once-ui-modal] span,
+[data-once-ui-modal] div:not(:has(img)),
+.enlarge-preview p,
+.enlarge-preview span,
+.enlarge-preview div:not(:has(img)) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Pastikan image di center dan visible */
+[data-once-ui-modal] img,
+.enlarge-preview img,
+.media-enlarge-modal img,
+[role="dialog"] img,
+dialog[open] img {
+  display: block !important;
+  margin: auto !important;
 }
 
 /* Fix for any overlapping text or elements */
@@ -31,4 +121,23 @@
 .table-of-contents,
 .sticky-avatar {
   z-index: -1 !important;
+}
+
+/* Pastikan semua content di belakang blur ketika modal image terbuka */
+body:has([data-once-ui-modal]) > *:not([data-once-ui-modal]),
+body:has(.enlarge-preview) > *:not(.enlarge-preview),
+body:has(.media-enlarge-modal) > *:not(.media-enlarge-modal),
+body:has(dialog[open]) > *:not(dialog[open]) {
+  filter: blur(0px);
+  transition: filter 0.3s ease;
+}
+
+/* Light mode support untuk backdrop */
+[data-theme="light"] .once-ui-modal::backdrop,
+[data-theme="light"] [data-once-ui-modal]::backdrop,
+[data-theme="light"] [role="dialog"]::backdrop,
+[data-theme="light"] dialog::backdrop {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
 }
