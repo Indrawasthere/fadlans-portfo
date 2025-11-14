@@ -150,3 +150,258 @@ body:has(dialog[open]) > *:not(dialog[open]) {
   transform: translateY(-4px);
   box-shadow: 0 0 35px rgba(0,200,255,0.4);
 }
+.work-grid img,
+.work-grid .media {
+  max-width: 680px !important;
+  width: 100% !important;
+  height: auto;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.work-grid .energy-pulse {
+  border-radius: 24px;
+}
+
+.work-grid .media:hover {
+  transform: perspective(900px) rotateX(6deg) rotateY(-6deg) scale(1.02);
+  transition: 0.25s ease;
+  box-shadow: 0 0 22px rgba(0,255,255,0.45);
+}
+
+/* ========================================
+   Fix Background Overlay for LIGHT MODE
+   ======================================== */
+[data-theme="light"] .once-ui-bg {
+  opacity: 0.15 !important;        /* soften overlay */
+  filter: brightness(1.25) !important;
+}
+
+/* Mask effect too dark? soften it */
+[data-theme="light"] .once-ui-bg-mask {
+  opacity: 0.1 !important;
+}
+
+/* Gradient in light mode should be barely visible */
+[data-theme="light"] .once-ui-bg-gradient {
+  opacity: 0.12 !important;
+}
+
+/* Grid in OnceUI background */
+[data-theme="light"] .once-ui-bg-grid {
+  opacity: 0.18 !important;
+  filter: brightness(1.2) !important;
+}
+
+[data-theme="light"] .once-ui-bg {
+  display: none !important;
+}
+
+/* ========================================
+   LIGHT MODE THEME SYSTEM - v2 (Proper)
+   ======================================== */
+
+/* -------------------------------
+   BASE LIGHT BACKGROUND
+------------------------------- */
+[data-theme="light"] body {
+  background: #f7f9fc !important;
+  color: #1a1a1a !important;
+}
+
+/* Frosted containers */
+[data-theme="light"] .energy-pulse,
+[data-theme="light"] .neon-card,
+[data-theme="light"] .once-ui-card {
+  background: rgba(255, 255, 255, 0.55) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow:
+    0 0 24px rgba(0, 0, 0, 0.05),
+    0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(14px);
+}
+
+/* -------------------------------
+   TRON GRID LIGHT MODE
+------------------------------- */
+[data-theme="light"] .tron-grid-3d,
+[data-theme="light"] .tron-grid,
+[data-theme="light"] .tron-lines,
+[data-theme="light"] .tron-dots {
+  opacity: 0.12 !important;
+  filter: brightness(1.5) saturate(0.7) blur(1px) !important;
+}
+
+/* -------------------------------
+   NEON PARTICLES LIGHT MODE
+------------------------------- */
+[data-theme="light"] canvas {
+  opacity: 0.32 !important;
+  filter: brightness(0.8) !important;
+}
+
+/* -------------------------------
+   ONCE UI BACKGROUND LAYERS
+------------------------------- */
+[data-theme="light"] .once-ui-bg,
+[data-theme="light"] .once-ui-bg-mask,
+[data-theme="light"] .once-ui-bg-lines,
+[data-theme="light"] .once-ui-bg-grid,
+[data-theme="light"] .once-ui-bg-dots,
+[data-theme="light"] .once-ui-bg-gradient {
+  opacity: 0.1 !important;
+  filter: brightness(1.4) !important;
+}
+
+/* -------------------------------
+   TYPOGRAPHY LIGHT MODE
+------------------------------- */
+[data-theme="light"] .neon-title {
+  color: #0a6cff !important;
+  text-shadow: 0 0 12px rgba(0, 102, 255, 0.3) !important;
+}
+
+[data-theme="light"] .neon-sub {
+  color: #6a4dff !important;
+  text-shadow: 0 0 12px rgba(106, 77, 255, 0.25) !important;
+}
+
+/* -------------------------------
+   BUTTON / TAG LIGHT MODE
+------------------------------- */
+[data-theme="light"] button[data-variant="secondary"],
+[data-theme="light"] .tag,
+[data-theme="light"] .button {
+  border-color: rgba(0,0,0,0.15) !important;
+  box-shadow: none !important;
+  color: #111 !important;
+}
+
+/* =========================================
+   GLOBAL NEON BUTTON SYSTEM (for all buttons)
+   ========================================= */
+
+.neon-btn,
+button[data-variant="secondary"],
+button[data-variant="primary"],
+button[data-variant="ghost"],
+button,
+a.button,
+.neon-download-btn {
+  border: 1px solid var(--neon-blue) !important;
+  background: rgba(0, 0, 0, 0.15) !important;
+  box-shadow:
+    0 0 10px rgba(77, 243, 255, 0.45),
+    inset 0 0 6px rgba(77, 243, 255, 0.25) !important;
+  transition: 0.25s ease !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(8px);
+}
+
+.neon-btn:hover,
+button[data-variant="secondary"]:hover,
+button[data-variant="primary"]:hover,
+button[data-variant="ghost"]:hover,
+button:hover,
+a.button:hover,
+.neon-download-btn:hover {
+  border-color: var(--neon-purple) !important;
+  box-shadow:
+    0 0 16px rgba(177, 76, 255, 0.6),
+    inset 0 0 8px rgba(177, 76, 255, 0.35) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.neon-btn:hover {
+  animation: neonPulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes neonPulse {
+  from {
+    box-shadow: 0 0 12px rgba(77,243,255,0.45);
+  }
+  to {
+    box-shadow: 0 0 22px rgba(177,76,255,0.55);
+  }
+}
+
+/* NAVBAR ITEM — base state = fully transparent */
+.navbar-item,
+.navbar-item button,
+.navbar-item a {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  transition: 0.25s ease !important;
+}
+
+/* NAVBAR ITEM HOVER — neon purple border + glow */
+.navbar-item:hover,
+.navbar-item button:hover,
+.navbar-item a:hover {
+  border: 1px solid var(--neon-purple) !important;
+  box-shadow:
+    0 0 14px rgba(177, 76, 255, 0.45),
+    inset 0 0 6px rgba(177, 76, 255, 0.35) !important;
+  background: rgba(0,0,0,0.2) !important; /* optional, remove if mau pure transparent */
+  transform: translateY(-2px);
+}
+
+/* Optional smoother look */
+.navbar-item {
+  border-radius: 10px !important;
+  transition: 0.25s ease !important;
+}
+
+/* Resume button fix */
+.resume-btn {
+  background: transparent !important;
+  color: var(--neon-blue) !important;
+  transition: 0.25s ease;
+}
+
+.resume-btn:hover {
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
+  box-shadow:
+    0 0 16px rgba(177,76,255,0.6),
+    inset 0 0 6px rgba(177,76,255,0.35) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* ========================
+   FOOTER ICON NEON STYLE
+   ======================== */
+
+/* Base: transparan & clean */
+.footer-icon {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px !important;
+  border-radius: 50% !important;
+  transition: 0.25s ease !important;
+}
+
+/* Hover = neon purple glow */
+.footer-icon:hover {
+  border: 1px solid var(--neon-purple) !important;
+  box-shadow:
+    0 0 12px rgba(177, 76, 255, 0.45),
+    inset 0 0 4px rgba(177, 76, 255, 0.35) !important;
+  transform: translateY(-2px) scale(1.08);
+  background: rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Icon color (idle + hover) */
+.footer-icon svg {
+  color: var(--neon-blue) !important;
+  transition: 0.25s ease;
+}
+
+.footer-icon:hover svg {
+  color: var(--neon-purple) !important;
+}
+

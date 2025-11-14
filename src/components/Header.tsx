@@ -84,7 +84,7 @@ export const Header = () => {
             padding="4"
             horizontal="center"
             zIndex={1}
-            className={styles.neonNavbar}
+            className="navbar-item"
           >
             <Row gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
               {routes["/"] && (

@@ -27,3 +27,20 @@
   0%   { transform: perspective(900px) rotateX(70deg) scale(1.6) translateY(0); }
   100% { transform: perspective(900px) rotateX(70deg) scale(1.6) translateY(200px); }
 }
+
+/* ============================
+   Light Mode Tron Grid Softener
+   ============================ */
+[data-theme="light"] .tron-grid-3d,
+[data-theme="light"] .tron-grid,
+[data-theme="light"] .tron-lines,
+[data-theme="light"] .tron-dots {
+  opacity: 0.25 !important;
+  filter: brightness(0.65) saturate(0.8) !important;
+}
+
+[data-theme="light"] .tron-grid-3d::before,
+[data-theme="light"] .tron-grid-3d::after {
+  opacity: 0.15 !important;
+}
+

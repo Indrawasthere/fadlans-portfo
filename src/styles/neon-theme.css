@@ -14,13 +14,50 @@
 }
 
 /* Dark mode */
-[data-theme="dark"] {
-  --neon-blue: #4DF3FF;
-  --neon-purple: #B14CFF;
-  --neon-pink: #FF44CC;
-  --neon-glow-blue: 0 0 18px rgba(77,243,255,0.35);
-  --neon-glow-purple: 0 0 22px rgba(177,76,255,0.3);
+[data-theme="light"] {
+  --neon-blue: #33E6FF;
+  --neon-purple: #C26BFF;
+  --neon-pink: #FF66CC;
+
+  --neon-glow-blue: 0 0 12px rgba(51, 230, 255, 0.35);
+  --neon-glow-purple: 0 0 14px rgba(194, 107, 255, 0.35);
 }
+
+/* Panels and Cards */
+[data-theme="light"] .energy-pulse {
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 0 14px rgba(0,255,255,0.12) !important;
+}
+
+/* Glow lines */
+[data-theme="light"] .glow-line {
+  background: rgba(0,255,255,0.28);
+  box-shadow: 0 0 8px rgba(0,255,255,0.45);
+}
+
+/* Neon titles on light mode */
+[data-theme="light"] .neon-title {
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 12px rgba(51,230,255,0.3);
+}
+
+/* Buttons */
+[data-theme="light"] button[data-variant="secondary"] {
+  border-color: var(--neon-blue) !important;
+  box-shadow: var(--neon-glow-blue) !important;
+}
+
+/* Tron Grid tweaks for Light Mode */
+[data-theme="light"] .tron-grid-3d {
+  opacity: 0.55 !important;
+  filter: brightness(1.15);
+}
+
+/* Particles softer in light mode */
+[data-theme="light"] canvas {
+  opacity: 0.6 !important;
+} 
 
 /* Light mode */
 [data-theme="light"] {
@@ -37,8 +74,8 @@ body {
 }
 
 [data-theme="light"] body {
-  background: #FAFAFA;
-  color: #1A1A1A;
+  background: #131821 !important; /* soft navy graphite */
+  color: #EAEAEA !important;
 }
 
 .neon-border {
@@ -74,3 +111,31 @@ button[data-variant="secondary"] {
 button:hover {
   box-shadow: var(--neon-glow-purple);
 }
+
+/* Neon border download button */
+.neon-download-btn {
+  border: 1px solid var(--neon-blue) !important;
+  box-shadow:
+    0 0 10px rgba(77,243,255,0.45),
+    inset 0 0 6px rgba(77,243,255,0.25) !important;
+  transition: 0.25s ease;
+}
+
+.neon-download-btn:hover {
+  border-color: var(--neon-purple) !important;
+  box-shadow:
+    0 0 16px rgba(177,76,255,0.6),
+    inset 0 0 8px rgba(177,76,255,0.35) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.gallery-media {
+  transition: 0.25s ease;
+  box-shadow: 0 0 0 transparent;
+}
+
+.gallery-media:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 14px rgba(77, 243, 255, 0.35);
+}
+

@@ -2,9 +2,9 @@ import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/
 import { Line, Logo, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Muhammad",
-  lastName: "Fadlan",
-  name: `Muhammad Fadlan`,
+  firstName: "Muhammad Fadlan",
+  lastName: "Hafiz",
+  name: `Muhammad Fadlan Hafiz`,
   role: "Software Engineer",
   avatar: "/images/avatar.jpg",
   email: "mhmdfdln14@gmail.com",
@@ -141,7 +141,7 @@ const about: About = {
   },
   
   studies: {
-    display: false, // set to false to hide this section
+    display: true, // set to false to hide this section
     title: "Studies",
     institutions: [
       {
@@ -246,8 +246,8 @@ const work: Work = {
 const gallery: Gallery = {
   path: "/gallery",
   label: "Resume",
-  title: `Resume – ${person.name}`,
-  description: `Download my professional resume in PDF format`,
+  title: `Resume`,
+  description: `Go ahead and click that button`,
   // Resume PDF as single image entry
   images: [
     {

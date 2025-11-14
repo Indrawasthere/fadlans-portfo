@@ -1,6 +1,6 @@
 @use "./breakpoints.scss" as breakpoints;
 
-@media (max-width: breakpoints.$s) {
+@media (max-width: breakpoints.$l) {
     .mobile {
         text-align: center;
     }
