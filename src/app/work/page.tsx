@@ -58,7 +58,7 @@ export default function Work() {
             position="sticky"
             s={{ position: "relative", style: { top: "auto" } }}
             xs={{ style: { top: "auto" } }}
-            minWidth="240"
+            minWidth={240}
             paddingX="xl"
             paddingBottom="xl"
             gap="l"

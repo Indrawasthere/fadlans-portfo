@@ -2,7 +2,6 @@
 
 import { Button, Column, Flex, Heading, Icon, Text, Media, MasonryGrid } from "@once-ui-system/core";
 import { gallery } from "@/resources";
-import { styles } from "@/components/styles/neon-style";
 
 export default function GalleryView() {
   const isPDF = gallery.images[0]?.src.endsWith('.pdf');
@@ -65,7 +64,7 @@ export default function GalleryView() {
           enlarge
           priority={index < 10}
           sizes="(max-width: 560px) 100vw, 50vw"
-          key={index}
+          key={image.src}
           radius="m"
           aspectRatio={image.orientation === "horizontal" ? "16 / 9" : "3 / 4"}
           src={image.src}

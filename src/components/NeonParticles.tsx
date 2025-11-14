@@ -27,8 +27,8 @@ export default function NeonParticles() {
   const particlesRef = useRef<Particle[]>([]);
   const sparklesRef = useRef<Sparkle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const animationFrameRef = useRef<number>();
-  const sparkleTimerRef = useRef<NodeJS.Timeout>();
+  const animationFrameRef = useRef<number>(0);
+  const sparkleTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
