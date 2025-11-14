@@ -6,9 +6,10 @@ import { ProjectCard } from "@/components";
 interface ProjectsProps {
   range?: [number, number?];
   exclude?: string[];
+  cardClass?: string; // <-- tambahin ini
 }
 
-export function Projects({ range, exclude }: ProjectsProps) {
+export function Projects({ range, exclude, cardClass }: ProjectsProps) {
   let allProjects = getPosts(["src", "app", "work", "projects"]);
 
   // Exclude by slug (exact match)
@@ -37,6 +38,9 @@ export function Projects({ range, exclude }: ProjectsProps) {
             content={post.content}
             avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
             link={post.metadata.link || ""}
+
+            /* >>> cardClass dilempar ke sini <<< */
+            cardClass={cardClass}
           />
         </ScrollReveal>
       ))}
