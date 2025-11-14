@@ -44,12 +44,12 @@ const home: Home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Just a guy who addicted with code</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Rayfala</strong>{" "}
+        <strong className="ml-4">Dacode</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Featured work
@@ -60,7 +60,7 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm Fadlan, a software engineer at Rayfala, where I craft intuitive
+      I'm Fadlan, a software engineer at Dacode, where I craft intuitive
       <br /> user experiences. After hours, I build my own projects.
     </>
   ),
@@ -72,7 +72,7 @@ const about: About = {
   title: `About – ${person.name}`,
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
-    display: true,
+    display: false,
     subItems: false,
   },
   avatar: {
@@ -98,7 +98,7 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
-        company: "Rayfala",
+        company: "Dacode",
         timeframe: "2025 - Present",
         role: "Chief Technology Officer",
         achievements: [
@@ -115,7 +115,7 @@ const about: About = {
           // optional: leave the array empty if you don't want to display images
           {
             src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
+            alt: "SPKMB",
             width: 16,
             height: 9,
           },
@@ -139,16 +139,18 @@ const about: About = {
       },
     ],
   },
-      studies: {
-        display: false, // set to false to hide this section
-        title: "Studies",
-        institutions: [
-          {
-            name: "Binus University",
-            description: <>Studied Computer Science.</>,
-          },
-        ],
+  
+  studies: {
+    display: false, // set to false to hide this section
+    title: "Studies",
+    institutions: [
+      {
+        name: "Binus University",
+        description: <>Studied Computer Science.</>,
       },
+    ],
+  },
+
   technical: {
     display: true, // set to false to hide this section
     title: "Technical skills",

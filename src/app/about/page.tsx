@@ -55,7 +55,8 @@ export default function About() {
 
   return (
     <>
-      <Column maxWidth="m">
+      <Column maxWidth="m" className="neon-arcade-bg relative">
+        <div className="pointer-events-none absolute inset-0 neon-grid"></div>
         <Schema
           as="webPage"
           baseURL={baseURL}
@@ -153,7 +154,7 @@ export default function About() {
                     </Row>
                   )}
                   <Heading
-                    className={styles.textAlign}
+                    className={`${styles.textAlign} neon-title`}
                     variant="display-strong-xl"
                   >
                     {person.name}
@@ -167,7 +168,7 @@ export default function About() {
                   </Text>
                   {social.length > 0 && (
                     <Row
-                      className={styles.blockAlign}
+                      className={`${styles.blockAlign} neon-title`}
                       paddingTop="20"
                       paddingBottom="8"
                       gap="8"
@@ -182,6 +183,7 @@ export default function About() {
                             <React.Fragment key={item.name}>
                               <Row s={{ hide: true }}>
                                 <Button
+                                  className={`${styles.textAlign} neon-title`}
                                   key={item.name}
                                   href={item.link}
                                   prefixIcon={item.icon}
@@ -222,6 +224,7 @@ export default function About() {
               {about.work.display && (
                 <ScrollReveal translateY={16} delay={0.2}>
                   <Heading
+                    className={`${styles.textAlign} neon-title`}
                     as="h2"
                     id={about.work.title}
                     variant="heading-strong-xl"
@@ -249,14 +252,14 @@ export default function About() {
                             >
                               {experience.company}
                             </Text>
-                            <Text
+                            <Text                            
                               variant="heading-default-xs"
                               onBackground="neutral-weak"
                             >
                               {experience.timeframe}
                             </Text>
                           </Row>
-                          <Text
+                          <Text                          
                             variant="body-default-s"
                             onBackground="brand-weak"
                             marginBottom="m"
@@ -267,6 +270,7 @@ export default function About() {
                             {experience.achievements.map(
                               (achievement: React.ReactNode, index: number) => (
                                 <Text
+                                  
                                   as="li"
                                   variant="body-default-m"
                                   key={`${experience.company}-${index}`}
@@ -315,6 +319,7 @@ export default function About() {
               {about.studies.display && (
                 <ScrollReveal translateY={16} delay={0.3}>
                   <Heading
+                    className={`${styles.textAlign} neon-title`}
                     as="h2"
                     id={about.studies.title}
                     variant="heading-strong-xl"
@@ -352,6 +357,7 @@ export default function About() {
               {about.technical.display && (
                 <ScrollReveal translateY={16} delay={0.4}>
                   <Heading
+                    className={`${styles.textAlign} neon-title`}
                     as="h2"
                     id={about.technical.title}
                     variant="heading-strong-xl"
@@ -374,6 +380,7 @@ export default function About() {
                             {skill.title}
                           </Text>
                           <Text
+                            
                             variant="body-default-m"
                             onBackground="neutral-weak"
                           >

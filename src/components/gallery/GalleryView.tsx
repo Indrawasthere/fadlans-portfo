@@ -2,19 +2,45 @@
 
 import { Button, Column, Flex, Heading, Icon, Text, Media, MasonryGrid } from "@once-ui-system/core";
 import { gallery } from "@/resources";
+import { styles } from "@/components/styles/neon-style";
 
 export default function GalleryView() {
   const isPDF = gallery.images[0]?.src.endsWith('.pdf');
 
   if (isPDF) {
     return (
-      <Flex fillWidth padding="xl" horizontal="center" vertical="center">
-        <Column fillWidth maxWidth="m" gap="l" horizontal="center">
-          <Icon name="download" size="xl" />
-          <Heading as="h2" variant="heading-strong-l" align="center">
+      <Flex 
+        fillWidth 
+        fillHeight
+        style={{ minHeight: "calc(100vh - 200px)" }}
+        paddingY="xl" 
+        horizontal="center" 
+        vertical="center"
+      >
+        <Column 
+          fillWidth 
+          maxWidth="s" 
+          gap="40" 
+          horizontal="center"
+          align="center"
+          paddingX="l"
+        >
+          <Heading 
+            className="neon-title"
+            as="h1" 
+            variant="display-strong-xl" 
+            align="center"
+            wrap="balance"
+          >
             {gallery.title}
           </Heading>
-          <Text variant="body-default-l" onBackground="neutral-medium" align="center">
+          <Text 
+            className="neon-sub"
+            variant="heading-default-l" 
+            onBackground="neutral-weak" 
+            align="center"
+            wrap="balance"
+          >
             {gallery.description}
           </Text>
           <Button
@@ -22,9 +48,10 @@ export default function GalleryView() {
             download
             variant="primary"
             size="l"
-            label="Download Resume PDF"
             prefixIcon="download"
-          />
+          >
+            Download Resume PDF
+          </Button>
         </Column>
       </Flex>
     );

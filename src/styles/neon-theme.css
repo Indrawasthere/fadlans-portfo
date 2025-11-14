@@ -1,0 +1,56 @@
+:root {
+  --neon-blue: #4DF3FF;
+  --neon-purple: #B14CFF;
+  --neon-pink: #FF44CC;
+
+  --neon-glow-blue: 0 0 18px rgba(77,243,255,0.35);
+  --neon-glow-purple: 0 0 22px rgba(177,76,255,0.3);
+
+  --bg-dark: #0E0E14;
+  --bg-dark-2: #0A0A11;
+
+  --text-primary: #F4F4F8;
+  --text-secondary: #B8B8C7;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(77,243,255,0.08) 0, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(177,76,255,0.06) 0, transparent 55%);
+}
+
+.neon-border {
+  border: 1px solid var(--neon-blue);
+  box-shadow: var(--neon-glow-blue);
+}
+
+.neon-title {
+  color: var(--neon-blue);
+  text-shadow: 0 0 14px rgba(77,243,255,0.45);
+}
+
+.neon-sub {
+  color: var(--neon-purple);
+  text-shadow: 0 0 12px rgba(177,76,255,0.35);
+}
+
+.neon-grid {
+  background-image: linear-gradient(
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+
+  background-size: 26px 26px;
+  opacity: 0.2;
+}
+
+button[data-variant="secondary"] {
+  border-color: var(--neon-blue) !important;
+  box-shadow: var(--neon-glow-blue);
+}
+button:hover {
+  box-shadow: var(--neon-glow-purple);
+}
