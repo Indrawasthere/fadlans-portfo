@@ -18,13 +18,14 @@ import {
 } from "@once-ui-system/core";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { baseURL, about, person, social } from "@/resources";
+import styles from "@/components/about/about.module.scss";
 
 // 3D Hover Media Wrapper Component
 const Media3DCard: React.FC<{
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
 }> = ({ src, alt, width, height }) => {
   const [rotateX, setRotateX] = React.useState(0);
   const [rotateY, setRotateY] = React.useState(0);
@@ -57,34 +58,101 @@ const Media3DCard: React.FC<{
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="parallax-media-wrapper energy-pulse"
       style={{
         perspective: "1000px",
-        width: `${width * 16}px`,
-        height: `${height * 16}px`,
+        transformStyle: "preserve-3d",
+        borderRadius: "12px",
+        overflow: "hidden",
       }}
     >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
           transition: "transform 0.25s ease-out",
           transformStyle: "preserve-3d",
+          borderRadius: "12px",
+          overflow: "hidden",
         }}
       >
         <Media
           enlarge
           radius="m"
+          sizes={width}
           alt={alt}
           src={src}
           style={{
             width: "100%",
-            height: "100%",
+            height,
             objectFit: "cover",
+            display: "block",
           }}
         />
       </div>
+    </div>
+  );
+};
+
+// Social Badge Component with neon colors
+const SocialBadge: React.FC<{
+  name: string;
+  icon: string;
+  link: string;
+}> = ({ name, icon, link }) => {
+  const getNeonColor = () => {
+    switch (name.toLowerCase()) {
+      case "github":
+        return { color: "#4DF3FF", glow: "rgba(77,243,255,0.45)" };
+      case "linkedin":
+        return { color: "#B14CFF", glow: "rgba(177,76,255,0.45)" };
+      case "email":
+        return { color: "#FF44CC", glow: "rgba(255,68,204,0.45)" };
+      default:
+        return { color: "#4DF3FF", glow: "rgba(77,243,255,0.45)" };
+    }
+  };
+
+  const { color, glow } = getNeonColor();
+  const badgeRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const badge = badgeRef.current?.querySelector("a") as HTMLElement;
+    if (!badge) return;
+
+    const handleMouseEnter = () => {
+      badge.style.boxShadow = `0 0 24px ${glow}, inset 0 0 16px ${glow}30`;
+      badge.style.transform = "scale(1.06)";
+    };
+
+    const handleMouseLeave = () => {
+      badge.style.boxShadow = `0 0 12px ${glow}, inset 0 0 12px ${glow}20`;
+      badge.style.transform = "scale(1)";
+    };
+
+    badge.addEventListener("mouseenter", handleMouseEnter);
+    badge.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      badge.removeEventListener("mouseenter", handleMouseEnter);
+      badge.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [glow]);
+
+  return (
+    <div ref={badgeRef}>
+      <Button
+        href={link}
+        prefixIcon={icon}
+        label={name}
+        size="s"
+        variant="secondary"
+        style={{
+          minWidth: "fit-content",
+          border: `1px solid ${color}`,
+          boxShadow: `0 0 12px ${glow}, inset 0 0 12px ${glow}20`,
+          transition: "all 0.3s ease",
+          cursor: "pointer",
+        }}
+      />
     </div>
   );
 };
@@ -94,7 +162,7 @@ export default function AboutPageClient() {
     <>
       <Column
         fillWidth
-        maxWidth="xl"
+        maxWidth="l"
         className="relative"
         style={{ zIndex: 1, paddingTop: "40px", paddingBottom: "80px" }}
       >
@@ -117,9 +185,9 @@ export default function AboutPageClient() {
           <Column
             fillWidth
             padding="xl"
-            radius="m"
             className="energy-pulse"
             style={{
+              borderRadius:"32",
               border: "1px solid rgba(0,255,255,0.25)",
               background: "rgba(10,10,20,0.45)",
               backdropFilter: "blur(14px)",
@@ -146,17 +214,33 @@ export default function AboutPageClient() {
                     minWidth={240}
                     maxWidth={240}
                     gap="l"
-                    s={{
+                    style={{
                       minWidth: "100%",
                       maxWidth: "100%",
-                      align: "center",
                     }}
                   >
-                    {/* FIXED: Neon Avatar - Proper Size */}
-                    <div className="neon-avatar-wrapper">
-                      <Avatar 
-                        src={person.avatar} 
-                        size="xl"
+                    {/* Neon Bordered Avatar */}
+                    <div
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                        borderRadius: "999px",
+                        border: "2px solid",
+                        borderImage:
+                          "linear-gradient(135deg, #4DF3FF, #B14CFF) 1",
+                        boxShadow: "0 0 18px rgba(77,243,255,0.45)",
+                        padding: "2px",
+                        animation: "neonPulse 2.5s ease-in-out infinite",
+                      }}
+                    >
+                      <Avatar
+                        src={person.avatar}
+                        size="l"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "999px",
+                        }}
                       />
                     </div>
 
@@ -168,7 +252,15 @@ export default function AboutPageClient() {
                     {person.languages && person.languages.length > 0 && (
                       <Row wrap gap="8">
                         {person.languages.map((language, index) => (
-                          <Tag key={index} size="l" className="neon-border">
+                          <Tag
+                            key={index}
+                            size="l"
+                            className="neon-border"
+                            style={{
+                              border: "1px solid rgba(77,243,255,0.6)",
+                              boxShadow: "0 0 10px rgba(77,243,255,0.35)",
+                            }}
+                          >
                             {language}
                           </Tag>
                         ))}
@@ -251,7 +343,7 @@ export default function AboutPageClient() {
                       {person.role}
                     </Text>
 
-                    {/* Social Buttons */}
+                    {/* Social Badges with neon colors */}
                     {social.length > 0 && (
                       <Row
                         paddingTop="16"
@@ -265,17 +357,11 @@ export default function AboutPageClient() {
                         {social.map(
                           (item) =>
                             item.link && (
-                              <Button
+                              <SocialBadge
                                 key={item.name}
-                                href={item.link}
-                                prefixIcon={item.icon}
-                                label={item.name}
-                                size="s"
-                                variant="secondary"
-                                className="neon-border"
-                                style={{
-                                  minWidth: "fit-content",
-                                }}
+                                name={item.name}
+                                icon={item.icon}
+                                link={item.link}
                               />
                             )
                         )}
@@ -303,8 +389,8 @@ export default function AboutPageClient() {
               marginBottom="xl"
             >
               <Line
+                maxWidth="100%"
                 style={{
-                  maxWidth: "100%",
                   background: "rgba(0,255,255,0.25)",
                   boxShadow: "0 0 10px rgba(0,255,255,0.5)",
                 }}
@@ -396,6 +482,10 @@ export default function AboutPageClient() {
                                   as="li"
                                   variant="body-default-m"
                                   key={`${experience.company}-${idx}`}
+                                  style={{
+                                    wordBreak: "break-word",
+                                    overflow: "hidden",
+                                  }}
                                 >
                                   {achievement}
                                 </Text>
@@ -403,23 +493,33 @@ export default function AboutPageClient() {
                             )}
                           </Column>
 
-                          {/* Optional Images with 3D Parallax */}
+                          {/* Optional Images */}
                           {experience.images &&
                             experience.images.length > 0 && (
                               <Row
                                 fillWidth
                                 paddingTop="m"
+                                paddingLeft="40"
                                 gap="12"
                                 wrap
+                                horizontal="start"
                               >
                                 {experience.images.map((image, imgIndex) => (
-                                  <Media3DCard
+                                  <Column
                                     key={imgIndex}
-                                    src={image.src}
-                                    alt={image.alt}
-                                    width={image.width}
-                                    height={image.height}
-                                  />
+                                    style={{
+                                      minWidth: "300px",
+                                      maxWidth:"300px",
+                                      flexShrink: 0,
+                                    }}
+                                  >
+                                    <Media3DCard
+                                      src={image.src}
+                                      alt={image.alt}
+                                      width="100%"
+                                      height="auto"
+                                    />
+                                  </Column>
                                 ))}
                               </Row>
                             )}
@@ -488,7 +588,24 @@ export default function AboutPageClient() {
                                     key={`${skill.title}-${tagIndex}`}
                                     size="l"
                                     prefixIcon={tag.icon}
-                                    className="neon-border"
+                                    style={{
+                                      border: "1px solid rgba(77,243,255,0.6)",
+                                      boxShadow: "0 0 10px rgba(77,243,255,0.35)",
+                                      transition: "all 0.3s ease",
+                                      cursor: "pointer",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      const target = e.currentTarget as HTMLDivElement;
+                                      target.style.boxShadow =
+                                        "0 0 20px rgba(77,243,255,0.6)";
+                                      target.style.transform = "scale(1.05)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      const target = e.currentTarget as HTMLDivElement;
+                                      target.style.boxShadow =
+                                        "0 0 10px rgba(77,243,255,0.35)";
+                                      target.style.transform = "scale(1)";
+                                    }}
                                   >
                                     {tag.name}
                                   </Tag>
@@ -501,11 +618,15 @@ export default function AboutPageClient() {
                           <Text
                             variant="body-default-m"
                             onBackground="neutral-weak"
+                            style={{
+                              wordBreak: "break-word",
+                              overflow: "hidden",
+                            }}
                           >
                             {skill.description}
                           </Text>
 
-                          {/* Optional Images with 3D Parallax */}
+                          {/* Optional Images */}
                           {skill.images && skill.images.length > 0 && (
                             <Row
                               fillWidth
@@ -515,13 +636,21 @@ export default function AboutPageClient() {
                               paddingTop="m"
                             >
                               {skill.images.map((image, imgIndex) => (
-                                <Media3DCard
+                                <Column
                                   key={imgIndex}
-                                  src={image.src}
-                                  alt={image.alt}
-                                  width={image.width}
-                                  height={image.height}
-                                />
+                                  style={{
+                                    maxWidth: "300px",
+                                    minWidth: "300px",
+                                    flexShrink: 0,
+                                  }}
+                                >
+                                  <Media3DCard
+                                    src={image.src}
+                                    alt={image.alt}
+                                    width="100%"
+                                    height="auto"
+                                  />
+                                </Column>
                               ))}
                             </Row>
                           )}
@@ -591,6 +720,10 @@ export default function AboutPageClient() {
                           <Text
                             variant="body-default-m"
                             onBackground="neutral-weak"
+                            style={{
+                              wordBreak: "break-word",
+                              overflow: "hidden",
+                            }}
                           >
                             {institution.description}
                           </Text>
@@ -603,15 +736,24 @@ export default function AboutPageClient() {
                                 paddingTop="m"
                                 gap="12"
                                 wrap
+                                horizontal="start"
                               >
                                 {institution.images.map((image, imgIndex) => (
-                                  <Media3DCard
+                                  <Column
                                     key={imgIndex}
-                                    src={image.src}
-                                    alt={image.alt}
-                                    width={image.width}
-                                    height={image.height}
-                                  />
+                                    style={{
+                                        maxWidth: "300px",
+                                        minWidth: "300px",
+                                      flexShrink: 0,
+                                    }}
+                                  >
+                                    <Media3DCard
+                                      src={image.src}
+                                      alt={image.alt}
+                                      width="100%"
+                                      height="auto"
+                                    />
+                                  </Column>
                                 ))}
                               </Row>
                             )}
@@ -624,6 +766,18 @@ export default function AboutPageClient() {
             )}
           </Column>
         </RevealFx>
+
+        {/* Neon Pulse Animation */}
+        <style>{`
+          @keyframes neonPulse {
+            0%, 100% {
+              box-shadow: 0 0 18px rgba(77,243,255,0.45);
+            }
+            50% {
+              box-shadow: 0 0 32px rgba(77,243,255,0.7), 0 0 48px rgba(177,76,255,0.5);
+            }
+          }
+        `}</style>
       </Column>
     </>
   );

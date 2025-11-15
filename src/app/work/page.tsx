@@ -1,13 +1,4 @@
-import {
-  Column,
-  Heading,
-  Meta,
-  Schema,
-  Text,
-  Line,
-  RevealFx,
-  Row,
-} from "@once-ui-system/core";
+import { Column, Heading, Meta, Schema, Text, Line, RevealFx, Row } from "@once-ui-system/core";
 import { baseURL, person, work } from "@/resources";
 import { Projects } from "@/components/work/Projects";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -27,7 +18,7 @@ export default function Work() {
     <>
       <Column
         fillWidth
-        maxWidth="xl"
+        maxWidth="l"
         className="relative"
         style={{ zIndex: 1, paddingTop: "40px", paddingBottom: "80px" }}
       >
@@ -63,36 +54,40 @@ export default function Work() {
           >
             {/* ================= HEADER ================= */}
             <ScrollReveal translateY={16} delay={0.15}>
-              <Column fillWidth gap="16" align="center">
-                <Heading
-                  variant="display-strong-xl"
-                  className="neon-title"
-                  style={{ lineHeight: "1.1" }}
-                >
-                  Projects
-                </Heading>
+              <Row fillWidth horizontal="center" s={{ direction: "column" }}>
+                <Column fillWidth gap="16" style={{ textAlign: "center" }} s={{ maxWidth: "100%" }}>
+                  <Heading
+                    variant="display-strong-xl"
+                    className="neon-title"
+                    style={{ lineHeight: "1.1" }}
+                  >
+                    Projects
+                  </Heading>
 
-                <Text
-                  wrap="balance"
-                  onBackground="neutral-weak"
-                  variant="body-default-l"
-                  align="center"
-                  style={{
-                    maxWidth: "680px",
-                    marginTop: "8px",
-                  }}
-                >
-                  A collection of the things I've been building — from experimental UIs,
-                  shipping-ready platforms, to ideas that accidentally became real products.
-                </Text>
-              </Column>
+                  <Text
+                    wrap="balance"
+                    onBackground="neutral-weak"
+                    variant="body-default-l"
+                    align="center"
+                    style={{
+                      maxWidth: "680px",
+                      marginTop: "8px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                  >
+                    A collection of the things I've been building — from experimental UIs,
+                    shipping-ready platforms, to ideas that accidentally became real products.
+                  </Text>
+                </Column>
+              </Row>
             </ScrollReveal>
 
             {/* GLOW DIVIDER */}
             <Row fillWidth horizontal="center" marginTop="xl" marginBottom="xl">
               <Line
                 style={{
-                  maxWidth:"100%",
+                  maxWidth: "100%",
                   background: "rgba(0,255,255,0.3)",
                   height: "2px",
                   boxShadow: "0 0 12px rgba(0,255,255,0.5)",
