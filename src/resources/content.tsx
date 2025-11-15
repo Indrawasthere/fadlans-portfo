@@ -88,7 +88,7 @@ const about: About = {
     description: (
       <>
         Fadlan is a Jakarta-based software engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
+        into simple, elegant design solutions. His work spans digital interfaces, interactive
         experiences, and the convergence of design and technology.
       </>
     ),

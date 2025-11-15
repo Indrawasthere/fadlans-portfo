@@ -1,31 +1,6 @@
 /* Custom styles for Once-UI components */
 
 /* ========================================
-   AVATAR NEON BORDER + PULSE
-   ======================================== */
-[data-component="avatar"] {
-  border: 2px solid var(--neon-blue) !important;
-  box-shadow: 0 0 18px rgba(77,243,255,0.45) !important;
-  border-radius: 999px !important;
-  animation: neonPulseAvatar 2.5s ease-in-out infinite !important;
-}
-
-@keyframes neonPulseAvatar {
-  0%, 100% {
-    box-shadow: 0 0 18px rgba(77,243,255,0.45);
-    border-color: var(--neon-blue);
-  }
-  50% {
-    box-shadow: 0 0 32px rgba(77,243,255,0.7), 0 0 48px rgba(177,76,255,0.5);
-    border-color: var(--neon-purple);
-  }
-}
-
-[data-theme="light"] [data-component="avatar"] {
-  border-color: var(--neon-blue) !important;
-  box-shadow: 0 0 12px rgba(51,230,255,0.45) !important;
-}
-
 /* Ensure enlarge image previews appear above all content */
 .once-ui-modal,
 [data-once-ui-modal],

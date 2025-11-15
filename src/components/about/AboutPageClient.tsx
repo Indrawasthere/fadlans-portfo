@@ -19,6 +19,7 @@ import {
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { baseURL, about, person, social } from "@/resources";
 import styles from "@/components/about/about.module.scss";
+import Image from "next/image";
 
 // 3D Hover Media Wrapper Component
 const Media3DCard: React.FC<{
@@ -147,6 +148,7 @@ const SocialBadge: React.FC<{
         variant="secondary"
         style={{
           minWidth: "fit-content",
+          maxWidth: "fit-content",
           border: `1px solid ${color}`,
           boxShadow: `0 0 12px ${glow}, inset 0 0 12px ${glow}20`,
           transition: "all 0.3s ease",
@@ -187,7 +189,7 @@ export default function AboutPageClient() {
             padding="xl"
             className="energy-pulse"
             style={{
-              borderRadius:"32",
+              borderRadius: "32",
               border: "1px solid rgba(0,255,255,0.25)",
               background: "rgba(10,10,20,0.45)",
               backdropFilter: "blur(14px)",
@@ -211,61 +213,69 @@ export default function AboutPageClient() {
               {about.avatar.display && (
                 <ScrollReveal translateY={16} delay={0.15}>
                   <Column
-                    minWidth={240}
-                    maxWidth={240}
-                    gap="l"
+                    minWidth={280}
+                    maxWidth={280}
+                    gap="24"
                     style={{
                       minWidth: "100%",
                       maxWidth: "100%",
                     }}
                   >
-                    {/* Neon Bordered Avatar */}
+                    {/* Pure Avatar - High Resolution */}
                     <div
                       style={{
-                        width: "120px",
-                        height: "120px",
+                        width: "180px",
+                        height: "180px",
                         borderRadius: "999px",
-                        border: "2px solid",
-                        borderImage:
-                          "linear-gradient(135deg, #4DF3FF, #B14CFF) 1",
-                        boxShadow: "0 0 18px rgba(77,243,255,0.45)",
-                        padding: "2px",
-                        animation: "neonPulse 2.5s ease-in-out infinite",
+                        overflow: "hidden",
+                        flexShrink: 0,
                       }}
                     >
-                      <Avatar
+                      <Image
                         src={person.avatar}
-                        size="l"
+                        alt={person.name}
+                        width={180}
+                        height={180}
+                        priority
+                        quality={95}
                         style={{
                           width: "100%",
                           height: "100%",
-                          borderRadius: "999px",
+                          objectFit: "cover",
+                          objectPosition: "center",
                         }}
                       />
                     </div>
 
-                    <Row gap="8" vertical="center">
-                      <Icon onBackground="accent-weak" name="globe" />
-                      <Text variant="body-default-s">{person.location}</Text>
-                    </Row>
-
-                    {person.languages && person.languages.length > 0 && (
-                      <Row wrap gap="8">
-                        {person.languages.map((language, index) => (
-                          <Tag
-                            key={index}
-                            size="l"
-                            className="neon-border"
-                            style={{
-                              border: "1px solid rgba(77,243,255,0.6)",
-                              boxShadow: "0 0 10px rgba(77,243,255,0.35)",
-                            }}
-                          >
-                            {language}
-                          </Tag>
-                        ))}
+                    {/* Location */}
+                    <Column gap="12">
+                      <Row gap="8" vertical="center">
+                        <Icon size="s" onBackground="accent-weak" name="globe" />
+                        <Text variant="body-default-s" weight="medium">
+                          {person.location}
+                        </Text>
                       </Row>
-                    )}
+
+                      {/* Languages */}
+                      {person.languages && person.languages.length > 0 && (
+                        <Row wrap gap="8">
+                          {person.languages.map((language, index) => (
+                            <Tag
+                              key={index}
+                              size="s"
+                              style={{
+                                border: "1px solid rgba(77,243,255,0.5)",
+                                backgroundColor: "rgba(77,243,255,0.08)",
+                                padding: "4px 12px",
+                                fontSize: "12px",
+                              }}
+                            >
+                              {language}
+                            </Tag>
+                          ))}
+                        </Row>
+                      )}
+                    </Column>
                   </Column>
                 </ScrollReveal>
               )}
@@ -306,11 +316,7 @@ export default function AboutPageClient() {
                           backdropFilter: "blur(10px)",
                         }}
                       >
-                        <Icon
-                          paddingLeft="12"
-                          name="calendar"
-                          onBackground="brand-weak"
-                        />
+                        <Icon paddingLeft="12" name="calendar" onBackground="brand-weak" />
                         <Row paddingX="8">Schedule a call</Row>
                         <IconButton
                           href={about.calendar.link}
@@ -363,7 +369,7 @@ export default function AboutPageClient() {
                                 icon={item.icon}
                                 link={item.link}
                               />
-                            )
+                            ),
                         )}
                       </Row>
                     )}
@@ -382,12 +388,7 @@ export default function AboutPageClient() {
             </Row>
 
             {/* NEON DIVIDER LINE */}
-            <Row
-              fillWidth
-              horizontal="center"
-              marginTop="xl"
-              marginBottom="xl"
-            >
+            <Row fillWidth horizontal="center" marginTop="xl" marginBottom="xl">
               <Line
                 maxWidth="100%"
                 style={{
@@ -448,29 +449,15 @@ export default function AboutPageClient() {
                           />
 
                           {/* Company & Timeframe */}
-                          <Row
-                            fillWidth
-                            horizontal="between"
-                            vertical="end"
-                            marginBottom="4"
-                          >
-                            <Text variant="heading-strong-m">
-                              {experience.company}
-                            </Text>
-                            <Text
-                              variant="heading-default-xs"
-                              onBackground="neutral-weak"
-                            >
+                          <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
+                            <Text variant="heading-strong-m">{experience.company}</Text>
+                            <Text variant="heading-default-xs" onBackground="neutral-weak">
                               {experience.timeframe}
                             </Text>
                           </Row>
 
                           {/* Role */}
-                          <Text
-                            variant="body-default-s"
-                            onBackground="brand-weak"
-                            marginBottom="m"
-                          >
+                          <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
                             {experience.role}
                           </Text>
 
@@ -489,40 +476,39 @@ export default function AboutPageClient() {
                                 >
                                   {achievement}
                                 </Text>
-                              )
+                              ),
                             )}
                           </Column>
 
                           {/* Optional Images */}
-                          {experience.images &&
-                            experience.images.length > 0 && (
-                              <Row
-                                fillWidth
-                                paddingTop="m"
-                                paddingLeft="40"
-                                gap="12"
-                                wrap
-                                horizontal="start"
-                              >
-                                {experience.images.map((image, imgIndex) => (
-                                  <Column
-                                    key={imgIndex}
-                                    style={{
-                                      minWidth: "300px",
-                                      maxWidth:"300px",
-                                      flexShrink: 0,
-                                    }}
-                                  >
-                                    <Media3DCard
-                                      src={image.src}
-                                      alt={image.alt}
-                                      width="100%"
-                                      height="auto"
-                                    />
-                                  </Column>
-                                ))}
-                              </Row>
-                            )}
+                          {experience.images && experience.images.length > 0 && (
+                            <Row
+                              fillWidth
+                              paddingTop="m"
+                              paddingLeft="40"
+                              gap="12"
+                              wrap
+                              horizontal="start"
+                            >
+                              {experience.images.map((image, imgIndex) => (
+                                <Column
+                                  key={imgIndex}
+                                  style={{
+                                    minWidth: "300px",
+                                    maxWidth: "300px",
+                                    flexShrink: 0,
+                                  }}
+                                >
+                                  <Media3DCard
+                                    src={image.src}
+                                    alt={image.alt}
+                                    width="100%"
+                                    height="auto"
+                                  />
+                                </Column>
+                              ))}
+                            </Row>
+                          )}
                         </Column>
                       </ScrollReveal>
                     ))}
@@ -572,11 +558,7 @@ export default function AboutPageClient() {
                               direction: "column",
                             }}
                           >
-                            <Heading
-                              as="h3"
-                              variant="heading-strong-m"
-                              style={{ flex: 1 }}
-                            >
+                            <Heading as="h3" variant="heading-strong-m" style={{ flex: 1 }}>
                               {skill.title}
                             </Heading>
 
@@ -596,14 +578,12 @@ export default function AboutPageClient() {
                                     }}
                                     onMouseEnter={(e) => {
                                       const target = e.currentTarget as HTMLDivElement;
-                                      target.style.boxShadow =
-                                        "0 0 20px rgba(77,243,255,0.6)";
+                                      target.style.boxShadow = "0 0 20px rgba(77,243,255,0.6)";
                                       target.style.transform = "scale(1.05)";
                                     }}
                                     onMouseLeave={(e) => {
                                       const target = e.currentTarget as HTMLDivElement;
-                                      target.style.boxShadow =
-                                        "0 0 10px rgba(77,243,255,0.35)";
+                                      target.style.boxShadow = "0 0 10px rgba(77,243,255,0.35)";
                                       target.style.transform = "scale(1)";
                                     }}
                                   >
@@ -628,13 +608,7 @@ export default function AboutPageClient() {
 
                           {/* Optional Images */}
                           {skill.images && skill.images.length > 0 && (
-                            <Row
-                              fillWidth
-                              gap="16"
-                              horizontal="start"
-                              wrap
-                              paddingTop="m"
-                            >
+                            <Row fillWidth gap="16" horizontal="start" wrap paddingTop="m">
                               {skill.images.map((image, imgIndex) => (
                                 <Column
                                   key={imgIndex}
@@ -654,109 +628,6 @@ export default function AboutPageClient() {
                               ))}
                             </Row>
                           )}
-                        </Column>
-                      </ScrollReveal>
-                    ))}
-                  </Column>
-                </Column>
-              </ScrollReveal>
-            )}
-
-            {/* ===== STUDIES SECTION ===== */}
-            {about.studies.display && (
-              <ScrollReveal translateY={16} delay={0.5}>
-                <Column fillWidth gap="l" marginTop="xl">
-                  <Heading
-                    className="neon-title"
-                    as="h2"
-                    id={about.studies.title}
-                    variant="heading-strong-l"
-                    marginBottom="24"
-                  >
-                    {about.studies.title}
-                  </Heading>
-
-                  <Column fillWidth gap="l">
-                    {about.studies.institutions.map((institution, index) => (
-                      <ScrollReveal
-                        key={`${institution.name}-${index}`}
-                        translateY={16}
-                        delay={index * 0.1}
-                      >
-                        <Column
-                          fillWidth
-                          gap="12"
-                          padding="l"
-                          radius="m"
-                          style={{
-                            border: "1px solid rgba(0,200,255,0.15)",
-                            background: "rgba(0,200,255,0.05)",
-                          }}
-                        >
-                          {/* Institution Name & Timeframe */}
-                          <Row
-                            fillWidth
-                            horizontal="between"
-                            vertical="end"
-                          >
-                            <Heading
-                              as="h3"
-                              variant="heading-strong-m"
-                              id={institution.name}
-                            >
-                              {institution.name}
-                            </Heading>
-                            {institution.timeframe && (
-                              <Text
-                                variant="heading-default-xs"
-                                onBackground="neutral-weak"
-                              >
-                                {institution.timeframe}
-                              </Text>
-                            )}
-                          </Row>
-
-                          {/* Description */}
-                          <Text
-                            variant="body-default-m"
-                            onBackground="neutral-weak"
-                            style={{
-                              wordBreak: "break-word",
-                              overflow: "hidden",
-                            }}
-                          >
-                            {institution.description}
-                          </Text>
-
-                          {/* Optional Images */}
-                          {institution.images &&
-                            institution.images.length > 0 && (
-                              <Row
-                                fillWidth
-                                paddingTop="m"
-                                gap="12"
-                                wrap
-                                horizontal="start"
-                              >
-                                {institution.images.map((image, imgIndex) => (
-                                  <Column
-                                    key={imgIndex}
-                                    style={{
-                                        maxWidth: "300px",
-                                        minWidth: "300px",
-                                      flexShrink: 0,
-                                    }}
-                                  >
-                                    <Media3DCard
-                                      src={image.src}
-                                      alt={image.alt}
-                                      width="100%"
-                                      height="auto"
-                                    />
-                                  </Column>
-                                ))}
-                              </Row>
-                            )}
                         </Column>
                       </ScrollReveal>
                     ))}
