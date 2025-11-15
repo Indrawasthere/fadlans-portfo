@@ -1,14 +1,12 @@
 import {
   Column,
   Heading,
-  Icon,
   Meta,
-  Row,
   Schema,
-  Tag,
   Text,
   Line,
   RevealFx,
+  Row,
 } from "@once-ui-system/core";
 import { baseURL, person, work } from "@/resources";
 import { Projects } from "@/components/work/Projects";
@@ -48,15 +46,14 @@ export default function Work() {
           }}
         />
 
-        {/* NEON CONTAINER */}
+        {/* NEON CONTAINER - SAME SIZE AS ABOUT PAGE */}
         <RevealFx translateY="16" delay={0.1}>
           <Column
             fillWidth
             padding="xl"
-            
+            radius="m"
             className="energy-pulse"
             style={{
-              borderRadius:"32",
               border: "1px solid rgba(0,255,255,0.25)",
               background: "rgba(10,10,20,0.45)",
               backdropFilter: "blur(14px)",
@@ -64,9 +61,9 @@ export default function Work() {
             }}
             s={{ padding: "l" }}
           >
-            {/* ================= HEADER (NO AVATAR) ================= */}
+            {/* ================= HEADER ================= */}
             <ScrollReveal translateY={16} delay={0.15}>
-              <Column fillWidth gap="16">
+              <Column fillWidth gap="16" align="center">
                 <Heading
                   variant="display-strong-xl"
                   className="neon-title"
@@ -76,15 +73,16 @@ export default function Work() {
                 </Heading>
 
                 <Text
-                  variant="body-default-l"
+                  wrap="balance"
                   onBackground="neutral-weak"
+                  variant="body-default-l"
+                  align="center"
                   style={{
-                    maxWidth: "80%",
-                    textAlign: "center",
+                    maxWidth: "680px",
                     marginTop: "8px",
                   }}
                 >
-                  A collection of the things I’ve been building — from experimental UIs,
+                  A collection of the things I've been building — from experimental UIs,
                   shipping-ready platforms, to ideas that accidentally became real products.
                 </Text>
               </Column>
@@ -104,18 +102,20 @@ export default function Work() {
 
             {/* ================= PROJECTS SECTION ================= */}
             <ScrollReveal translateY={16} delay={0.25}>
-              <Heading
-                as="h2"
-                variant="heading-strong-l"
-                className="neon-title"
-                marginBottom="24"
-              >
-                Explore My Work
-              </Heading>
+              <Column fillWidth gap="16" align="start">
+                <Heading
+                  as="h2"
+                  variant="heading-strong-l"
+                  className="neon-title"
+                  style={{ textAlign: "left" }}
+                >
+                  Explore My Work
+                </Heading>
+              </Column>
             </ScrollReveal>
 
             <ScrollReveal translateY={16} delay={0.35}>
-              <Column fillWidth gap="xl">
+              <Column fillWidth gap="xl" marginTop="24">
                 <Projects className="work-grid" />
               </Column>
             </ScrollReveal>

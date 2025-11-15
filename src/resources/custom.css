@@ -1,5 +1,31 @@
 /* Custom styles for Once-UI components */
 
+/* ========================================
+   AVATAR NEON BORDER + PULSE
+   ======================================== */
+[data-component="avatar"] {
+  border: 2px solid var(--neon-blue) !important;
+  box-shadow: 0 0 18px rgba(77,243,255,0.45) !important;
+  border-radius: 999px !important;
+  animation: neonPulseAvatar 2.5s ease-in-out infinite !important;
+}
+
+@keyframes neonPulseAvatar {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(77,243,255,0.45);
+    border-color: var(--neon-blue);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(77,243,255,0.7), 0 0 48px rgba(177,76,255,0.5);
+    border-color: var(--neon-purple);
+  }
+}
+
+[data-theme="light"] [data-component="avatar"] {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 12px rgba(51,230,255,0.45) !important;
+}
+
 /* Ensure enlarge image previews appear above all content */
 .once-ui-modal,
 [data-once-ui-modal],
@@ -150,6 +176,31 @@ body:has(dialog[open]) > *:not(dialog[open]) {
   transform: translateY(-4px);
   box-shadow: 0 0 35px rgba(0,200,255,0.4);
 }
+
+/* ========================================
+   PROJECT CARDS NEON BORDER + PARALLAX
+   ======================================== */
+.work-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.work-grid .parallax-card,
+.work-grid [class*="ProjectCard"] {
+  border: 1px solid rgba(0,255,255,0.25) !important;
+  box-shadow: 0 0 20px rgba(0,255,255,0.25) !important;
+  border-radius: 24px !important;
+  transition: all 0.3s ease !important;
+}
+
+.work-grid .parallax-card:hover,
+.work-grid [class*="ProjectCard"]:hover {
+  border-color: rgba(0,255,255,0.5) !important;
+  box-shadow: 0 0 30px rgba(0,255,255,0.45), inset 0 0 20px rgba(0,255,255,0.15) !important;
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-6px) !important;
+}
+
 .work-grid img,
 .work-grid .media {
   max-width: 680px !important;
@@ -167,6 +218,28 @@ body:has(dialog[open]) > *:not(dialog[open]) {
   transform: perspective(900px) rotateX(6deg) rotateY(-6deg) scale(1.02);
   transition: 0.25s ease;
   box-shadow: 0 0 22px rgba(0,255,255,0.45);
+}
+
+/* ========================================
+   REMOVE BORDER FROM PROJECT CARD BUTTONS
+   ======================================== */
+.work-grid button,
+.work-grid [data-variant="secondary"],
+.ProjectCard button,
+.ProjectCard [data-variant="secondary"] {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.work-grid button:hover,
+.work-grid [data-variant="secondary"]:hover,
+.ProjectCard button:hover,
+.ProjectCard [data-variant="secondary"]:hover {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  transform: translateX(4px) !important;
 }
 
 /* ========================================
@@ -201,9 +274,9 @@ body:has(dialog[open]) > *:not(dialog[open]) {
    LIGHT MODE THEME SYSTEM - v2 (Proper)
    ======================================== */
 
-/* -------------------------------
+/* --------------------------------
    BASE LIGHT BACKGROUND
-------------------------------- */
+--------------------------------- */
 [data-theme="light"] body {
   background: #f7f9fc !important;
   color: #1a1a1a !important;
@@ -221,9 +294,9 @@ body:has(dialog[open]) > *:not(dialog[open]) {
   backdrop-filter: blur(14px);
 }
 
-/* -------------------------------
+/* --------------------------------
    TRON GRID LIGHT MODE
-------------------------------- */
+--------------------------------- */
 [data-theme="light"] .tron-grid-3d,
 [data-theme="light"] .tron-grid,
 [data-theme="light"] .tron-lines,
@@ -232,17 +305,17 @@ body:has(dialog[open]) > *:not(dialog[open]) {
   filter: brightness(1.5) saturate(0.7) blur(1px) !important;
 }
 
-/* -------------------------------
+/* --------------------------------
    NEON PARTICLES LIGHT MODE
-------------------------------- */
+--------------------------------- */
 [data-theme="light"] canvas {
   opacity: 0.32 !important;
   filter: brightness(0.8) !important;
 }
 
-/* -------------------------------
+/* --------------------------------
    ONCE UI BACKGROUND LAYERS
-------------------------------- */
+--------------------------------- */
 [data-theme="light"] .once-ui-bg,
 [data-theme="light"] .once-ui-bg-mask,
 [data-theme="light"] .once-ui-bg-lines,
@@ -253,9 +326,9 @@ body:has(dialog[open]) > *:not(dialog[open]) {
   filter: brightness(1.4) !important;
 }
 
-/* -------------------------------
+/* --------------------------------
    TYPOGRAPHY LIGHT MODE
-------------------------------- */
+--------------------------------- */
 [data-theme="light"] .neon-title {
   color: #0a6cff !important;
   text-shadow: 0 0 12px rgba(0, 102, 255, 0.3) !important;
@@ -266,9 +339,9 @@ body:has(dialog[open]) > *:not(dialog[open]) {
   text-shadow: 0 0 12px rgba(106, 77, 255, 0.25) !important;
 }
 
-/* -------------------------------
+/* --------------------------------
    BUTTON / TAG LIGHT MODE
-------------------------------- */
+--------------------------------- */
 [data-theme="light"] button[data-variant="secondary"],
 [data-theme="light"] .tag,
 [data-theme="light"] .button {
@@ -406,4 +479,286 @@ footer .footer-icon:hover svg {
   color: var(--neon-purple) !important;
 }
 
+/* =========================================
+   NEON PROJECT CARD WITH PARALLAX
+   ========================================= */
 
+.neon-card {
+  position: relative;
+  border: 1px solid var(--neon-blue) !important;
+  background: rgba(10, 10, 20, 0.45) !important;
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 
+    0 0 20px rgba(77, 243, 255, 0.25),
+    inset 0 0 12px rgba(77, 243, 255, 0.1) !important;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.neon-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(77, 243, 255, 0.4),
+    rgba(177, 76, 255, 0.3),
+    rgba(255, 68, 204, 0.2)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.neon-card:hover::before {
+  opacity: 1;
+}
+
+.neon-card:hover {
+  border-color: var(--neon-purple) !important;
+  box-shadow: 
+    0 0 35px rgba(177, 76, 255, 0.45),
+    0 0 60px rgba(77, 243, 255, 0.2),
+    inset 0 0 20px rgba(177, 76, 255, 0.15) !important;
+}
+
+/* Parallax effect */
+.parallax-card {
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.parallax-card:hover {
+  cursor: pointer;
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .neon-card {
+  background: rgba(255, 255, 255, 0.55) !important;
+  border: 1px solid rgba(0, 184, 204, 0.4) !important;
+  box-shadow: 
+    0 0 15px rgba(0, 184, 204, 0.2),
+    inset 0 0 8px rgba(0, 184, 204, 0.08) !important;
+}
+
+[data-theme="light"] .neon-card:hover {
+  border-color: rgba(139, 46, 204, 0.5) !important;
+  box-shadow: 
+    0 0 25px rgba(139, 46, 204, 0.35),
+    0 0 40px rgba(0, 184, 204, 0.15),
+    inset 0 0 15px rgba(139, 46, 204, 0.12) !important;
+}
+
+/* =========================================
+   REMOVE BORDERS FROM PROJECT NAVIGATION LINKS
+   ========================================= */
+
+.project-link-no-border,
+.project-link-no-border a,
+.project-link-no-border button {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: var(--neon-blue) !important;
+  transition: all 0.25s ease;
+}
+
+.project-link-no-border:hover,
+.project-link-no-border:hover a,
+.project-link-no-border:hover button {
+  color: var(--neon-purple) !important;
+  text-shadow: 0 0 8px rgba(177, 76, 255, 0.4);
+  transform: translateX(4px);
+}
+
+/* Ensure icons inherit color */
+.project-link-no-border svg,
+.project-link-no-border [data-once-ui-icon] {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+/* Light mode link colors */
+[data-theme="light"] .project-link-no-border,
+[data-theme="light"] .project-link-no-border a,
+[data-theme="light"] .project-link-no-border button {
+  color: #0066cc !important;
+}
+
+[data-theme="light"] .project-link-no-border:hover,
+[data-theme="light"] .project-link-no-border:hover a,
+[data-theme="light"] .project-link-no-border:hover button {
+  color: #8B2ECC !important;
+  text-shadow: 0 0 6px rgba(139, 46, 204, 0.3);
+}
+
+/* =========================================
+   CAROUSEL IMAGE ENHANCEMENTS IN CARDS
+   ========================================= */
+
+.neon-card .work-grid img,
+.neon-card .media,
+.neon-card [data-once-ui-media] {
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.neon-card:hover .work-grid img,
+.neon-card:hover .media,
+.neon-card:hover [data-once-ui-media] {
+  transform: translateZ(20px);
+}
+
+/* =========================================
+   NEON PROJECT CARD WITH PARALLAX
+   ========================================= */
+
+.neon-card {
+  position: relative;
+  border: 1px solid var(--neon-blue) !important;
+  background: rgba(10, 10, 20, 0.45) !important;
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 
+    0 0 20px rgba(77, 243, 255, 0.25),
+    inset 0 0 12px rgba(77, 243, 255, 0.1) !important;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.neon-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(77, 243, 255, 0.4),
+    rgba(177, 76, 255, 0.3),
+    rgba(255, 68, 204, 0.2)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.neon-card:hover::before {
+  opacity: 1;
+}
+
+.neon-card:hover {
+  border-color: var(--neon-purple) !important;
+  box-shadow: 
+    0 0 35px rgba(177, 76, 255, 0.45),
+    0 0 60px rgba(77, 243, 255, 0.2),
+    inset 0 0 20px rgba(177, 76, 255, 0.15) !important;
+}
+
+/* Parallax effect */
+.parallax-card {
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.parallax-card:hover {
+  cursor: pointer;
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .neon-card {
+  background: rgba(255, 255, 255, 0.55) !important;
+  border: 1px solid rgba(0, 184, 204, 0.4) !important;
+  box-shadow: 
+    0 0 15px rgba(0, 184, 204, 0.2),
+    inset 0 0 8px rgba(0, 184, 204, 0.08) !important;
+}
+
+[data-theme="light"] .neon-card:hover {
+  border-color: rgba(139, 46, 204, 0.5) !important;
+  box-shadow: 
+    0 0 25px rgba(139, 46, 204, 0.35),
+    0 0 40px rgba(0, 184, 204, 0.15),
+    inset 0 0 15px rgba(139, 46, 204, 0.12) !important;
+}
+
+/* =========================================
+   REMOVE BORDERS FROM PROJECT NAVIGATION LINKS
+   ========================================= */
+
+.project-link-no-border,
+.project-link-no-border a,
+.project-link-no-border button {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: var(--neon-blue) !important;
+  transition: all 0.25s ease;
+}
+
+.project-link-no-border:hover,
+.project-link-no-border:hover a,
+.project-link-no-border:hover button {
+  color: var(--neon-purple) !important;
+  text-shadow: 0 0 8px rgba(177, 76, 255, 0.4);
+  transform: translateX(4px);
+}
+
+/* Ensure icons inherit color */
+.project-link-no-border svg,
+.project-link-no-border [data-once-ui-icon] {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+/* Light mode link colors */
+[data-theme="light"] .project-link-no-border,
+[data-theme="light"] .project-link-no-border a,
+[data-theme="light"] .project-link-no-border button {
+  color: #0066cc !important;
+}
+
+[data-theme="light"] .project-link-no-border:hover,
+[data-theme="light"] .project-link-no-border:hover a,
+[data-theme="light"] .project-link-no-border:hover button {
+  color: #8B2ECC !important;
+  text-shadow: 0 0 6px rgba(139, 46, 204, 0.3);
+}
+
+/* =========================================
+   CAROUSEL IMAGE ENHANCEMENTS IN CARDS
+   ========================================= */
+
+.neon-card .work-grid img,
+.neon-card .media,
+.neon-card [data-once-ui-media] {
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.neon-card:hover .work-grid img,
+.neon-card:hover .media,
+.neon-card:hover [data-once-ui-media] {
+  transform: translateZ(20px);
+}

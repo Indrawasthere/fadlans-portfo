@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import {
   AvatarGroup,
   Carousel,
@@ -30,9 +31,46 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   avatars,
   link,
+  cardClass,
 }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
+
+    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = "perspective(1200px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+  };
+
   return (
-    <Column fillWidth gap="m">
+    <Column 
+      fillWidth 
+      gap="m"
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`parallax-card neon-card energy-pulse ${cardClass || ""}`}
+      style={{
+        transition: "transform 0.15s ease-out",
+        willChange: "transform",
+        transformStyle: "preserve-3d",
+      }}
+    >
       <Carousel
         sizes="(max-width: 960px) 100vw, 960px"
         items={images.map((image) => ({
@@ -69,6 +107,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   suffixIcon="arrowRight"
                   style={{ margin: "0", width: "fit-content" }}
                   href={href}
+                  className="project-link-no-border"
                 >
                   <Text variant="body-default-s">Read case study</Text>
                 </SmartLink>
@@ -78,6 +117,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   suffixIcon="arrowUpRightFromSquare"
                   style={{ margin: "0", width: "fit-content" }}
                   href={link}
+                  className="project-link-no-border"
                 >
                   <Text variant="body-default-s">View project</Text>
                 </SmartLink>
