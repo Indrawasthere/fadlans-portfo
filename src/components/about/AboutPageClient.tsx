@@ -251,7 +251,7 @@ export default function AboutPageClient() {
                     <Column gap="12">
                       <Row gap="8" vertical="center">
                         <Icon size="s" onBackground="accent-weak" name="globe" />
-                        <Text variant="body-default-s" weight="medium">
+                        <Text variant="body-default-s">
                           {person.location}
                         </Text>
                       </Row>
@@ -390,8 +390,8 @@ export default function AboutPageClient() {
             {/* NEON DIVIDER LINE */}
             <Row fillWidth horizontal="center" marginTop="xl" marginBottom="xl">
               <Line
-                maxWidth="100%"
                 style={{
+                  maxWidth:"100%",
                   background: "rgba(0,255,255,0.25)",
                   boxShadow: "0 0 10px rgba(0,255,255,0.5)",
                 }}
